@@ -1,0 +1,20 @@
+<!-- 
+ПРЕДСТАВЛЕНИЯ.
+Задачи: 
+- хранит все представления проекта
+Должен знать только о ViewModels
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevTricks.ViewModels\DevTricks.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

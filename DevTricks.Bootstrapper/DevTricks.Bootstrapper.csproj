@@ -1,0 +1,24 @@
+<!-- 
+ЗАГРУЗЧИК.
+Задачи: 
+- знание всех зависимостей для их регистрации в контейнере зависимостей;
+- создание экземпляра контейнера
+Должен знать обо всех сборках, кроме Точки входа
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevTricks.Domain\DevTricks.Domain.csproj" />
+    <ProjectReference Include="..\DevTricks.Infrastructure\DevTricks.Infrastructure.csproj" />
+    <ProjectReference Include="..\DevTricks.ViewModels\DevTricks.ViewModels.csproj" />
+    <ProjectReference Include="..\DevTricks.Views\DevTricks.Views.csproj" />
+  </ItemGroup>
+
+</Project>

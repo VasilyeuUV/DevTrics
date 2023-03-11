@@ -1,4 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<!-- 
+ТОЧКА ВХОДА.
+Должна знать только о Загрузчике (DevTricks.Bootstrapper)
+-->
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -8,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\" />
+    <ProjectReference Include="..\DevTricks.Bootstrapper\DevTricks.Bootstrapper.csproj" />
   </ItemGroup>
 
 </Project>
