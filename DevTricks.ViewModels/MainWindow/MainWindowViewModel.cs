@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace DevTricks.ViewModels.MainWindow
 {
-    internal class MainWindowViewModel
+    /// <summary>
+    /// Класс вьюмодели главного окна приложения
+    /// </summary>
+    public class MainWindowViewModel : IMainWindowViewModel
     {
+
+
+        //############################################################################################################
+        #region IMainWindowViewModel
+
+        #endregion // IMainWindowViewModel
     }
 }

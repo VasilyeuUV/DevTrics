@@ -3,7 +3,7 @@ using DevTricks.ViewModels.MainWindow;
 
 namespace DevTricks.ViewModels
 {
-    public class RegistrationModule : Module
+    public class RegistrationModuleViewModels : Module
     {
 
         protected override void Load(ContainerBuilder builder)
