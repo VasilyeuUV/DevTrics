@@ -16,6 +16,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DevTricks.Domain\DevTricks.Domain.csproj" />
     <ProjectReference Include="..\DevTricks.Infrastructure\DevTricks.Infrastructure.csproj" />
     <ProjectReference Include="..\DevTricks.ViewModels\DevTricks.ViewModels.csproj" />
