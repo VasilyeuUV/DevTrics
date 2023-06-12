@@ -1,11 +1,7 @@
 ﻿using DevTricks.Domain.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using DevTricks.ViewModels.Commands;
+using DevTricks.ViewModels.Windows;
+using System.Windows.Input;
 
 namespace DevTricks.ViewModels.MainWindow
 {
@@ -15,14 +11,22 @@ namespace DevTricks.ViewModels.MainWindow
     public class MainWindowViewModel : IMainWindowViewModel
     {
         private readonly IMainWindowMementoWrapper _mainWindowMementoWrapper;       // - Wrapper, откуда свойства будут получать значения
+        private readonly IWindowManager _windowManager;                             // - менеджер окон
 
+        private Command _closeMainWindowCommand;
 
         /// <summary>
         /// CTOR
         /// </summary>
-        public MainWindowViewModel(IMainWindowMementoWrapper mainWindowMementoWrapper)
+        public MainWindowViewModel(
+            IMainWindowMementoWrapper mainWindowMementoWrapper,
+            IWindowManager windowManager
+            )
         {
             this._mainWindowMementoWrapper = mainWindowMementoWrapper;
+            this._windowManager = windowManager;
+
+            this._closeMainWindowCommand = new Command(CloseMainWindow);
         }
 
 
@@ -85,9 +89,31 @@ namespace DevTricks.ViewModels.MainWindow
         #endregion // Свойства окна
 
 
+
+        //############################################################################################################
+        #region Команды
+
+        /// <summary>
+        /// Свойство для команды закрытия главного окна
+        /// </summary>
+        public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
+
+        #endregion // Команды
+
+
         //############################################################################################################
         #region IMainWindowViewModel
 
         #endregion // IMainWindowViewModel
+
+
+        /// <summary>
+        /// Закрыть главное окно
+        /// </summary>
+        /// <param name=""></param>
+        private void CloseMainWindow()
+        {
+            _windowManager.Close(this);
+        }
     }
 }
