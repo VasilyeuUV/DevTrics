@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using DevTricks.Infrastructure;
+using DevTricks.Infrastructure.Settings;
 using DevTricks.ViewModels;
 using DevTricks.Views;
 using DevTricks.Views.MainWindow;
@@ -16,6 +18,7 @@ namespace DevTricks.Bootstrapper
 
             // Регистрация существующих модулей
             containerBuilder
+                .RegisterModule<RegistrationModuleInfrastructure>()
                 .RegisterModule<RegistrationModuleViews>()
                 .RegisterModule<RegistrationModuleViewModels>();
 
@@ -28,6 +31,8 @@ namespace DevTricks.Bootstrapper
         /// <returns></returns>
         public Window Run()
         {
+            InitializeDependencies();                   // - инициализация зависимостей
+
             // С помощью контейнера зарезолвим главное окно
             // т.к. создана зависимость окна от VM, перед созданием окна контейнер создаст VM главного окна
             // и использует его инстанс для создания главного окна
@@ -39,6 +44,17 @@ namespace DevTricks.Bootstrapper
 
             window.Show();
             return window;
+        }
+
+
+        /// <summary>
+        /// Инициализация зависимостей
+        /// </summary>
+        private void InitializeDependencies()
+        {
+            // Резолвим и инициализируем Memento главного окна приложения
+            _container.Resolve<IMainWindowMementoWrapperInitializer>()
+                .Initialize();
         }
 
 
