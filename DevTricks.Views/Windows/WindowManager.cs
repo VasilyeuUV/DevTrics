@@ -13,7 +13,6 @@ namespace DevTricks.Views.Windows
         private readonly Dictionary<IWindowViewModel, IWindow> _viewModelToWindowMap = new();   // - карта соответствия вьюмоделей окнам (кэш окон)
         private readonly Dictionary<IWindow, IWindowViewModel> _windowToViewModelMap = new();   // - карта соответствия окон вьюмоделям (кэш вьюмоделей)
 
-
         private readonly IWindowFactory _windowFactory;                                         // - фабрика окон
 
 
@@ -31,6 +30,34 @@ namespace DevTricks.Views.Windows
         //############################################################################################################
         #region IWindowManager
 
+        /// <summary>
+        /// Показ окна
+        /// </summary>
+        /// <typeparam name="TWindowViewModel"></typeparam>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public IWindow Show<TWindowViewModel>(TWindowViewModel viewModel)
+            where TWindowViewModel : IWindowViewModel
+        {
+            if (_viewModelToWindowMap.TryGetValue(viewModel, out var window))
+            {
+                window.Activate();  
+                return window;
+            }
+
+            window = _windowFactory.Create(viewModel);      // - создаём окно при помощи фабрики
+
+            _viewModelToWindowMap.Add(viewModel, window);       // - добавляем его в кэш
+            _windowToViewModelMap.Add(window, viewModel);       // - и в обратный кэш
+
+            window.Closing += OnWindowClosing;                  // - подписываемся на событие перед закрытием окна
+            window.Closed += OnWindowClosed;                    // - подписываемся на событие при закрытии окна
+
+            window.Show();                                      // - показываем
+
+            return window;
+        }
+
 
         /// <summary>
         /// Инициация закрытия окна
@@ -45,24 +72,6 @@ namespace DevTricks.Views.Windows
                 window.Close();
 
         }
-
-
-        public IWindow Show<TWindowViewModel>(TWindowViewModel viewModel) 
-            where TWindowViewModel : IWindowViewModel
-        {
-            var window = _windowFactory.Create(viewModel);      // - создаём окно при помощи фабрики
-
-            _viewModelToWindowMap.Add(viewModel, window);       // - добавляем его в кэш
-            _windowToViewModelMap.Add(window, viewModel);       // - и в обратный кэш
-
-            window.Closing += OnWindowClosing;                  // - подписываемся на событие перед закрытием окна
-            window.Closed += OnWindowClosed;                    // - подписываемся на событие при закрытии окна
-
-            window.Show();                                      // - показываем
-
-            return window;
-        }
-
 
         #endregion // IWindowManager
 

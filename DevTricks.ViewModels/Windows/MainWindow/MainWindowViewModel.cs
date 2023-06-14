@@ -1,4 +1,5 @@
 ﻿using DevTricks.Domain.DispatcherTimer;
+using DevTricks.Domain.Factories;
 using DevTricks.Domain.Settings.MainWindowSettings;
 using DevTricks.Domain.Version;
 using DevTricks.ViewModels.Commands;
@@ -12,10 +13,11 @@ namespace DevTricks.ViewModels.Windows.MainWindow
     /// </summary>
     public class MainWindowViewModel : AWindowViewModelBase<IMainWindowMementoWrapper>, IMainWindowViewModel
     {
-        private readonly IWindowManager _windowManager;                     // - менеджер окон
-        private readonly IAboutWindowViewModel _aboutWindowViewModel;       // - вьюмодель окна "О программе"
+        private readonly IWindowManager _windowManager;                                 // - менеджер окон
+        private readonly IFactory<IAboutWindowViewModel> _aboutWindowViewModelFactory;  // - фабрика для вьюмодели окна "О программе"
+        private readonly IDispatcherTimer _dispatcherTimer;                             // - таймер
 
-        private readonly IDispatcherTimer _dispatcherTimer;                 // - таймер
+        private IAboutWindowViewModel? _aboutWindowViewModel;                           // - вьюмодель окна "О программе"
 
         private Command _closeMainWindowCommand;
         private Command _openAboutWindowCommand;
@@ -29,14 +31,14 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         public MainWindowViewModel(
             IMainWindowMementoWrapper mainWindowMementoWrapper,
             IWindowManager windowManager,
-            IAboutWindowViewModel aboutWindowViewModel,
             IApplicationVersionProvider applicationVersionProvider,
-            IDispatcherTimerFactory dispatcherTimerFactory
+            IDispatcherTimerFactory dispatcherTimerFactory,
+            IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory
             )
             : base(mainWindowMementoWrapper)
         {
             _windowManager = windowManager;
-            this._aboutWindowViewModel = aboutWindowViewModel;
+            this._aboutWindowViewModelFactory = aboutWindowViewModelFactory;
 
             this._dispatcherTimer = dispatcherTimerFactory.Create(TimeSpan.FromSeconds(1));
             this._dispatcherTimer.Tick += OnDispatcherTimerTick;
@@ -55,7 +57,10 @@ namespace DevTricks.ViewModels.Windows.MainWindow
 
         public override void WindowClosing()
         {
-            _windowManager.Close(_aboutWindowViewModel);        // - закрытие окна "О программе"
+            base.WindowClosing();
+
+            if (_aboutWindowViewModel != null)
+                _windowManager.Close(_aboutWindowViewModel);        // - закрытие окна "О программе"
         }
 
         #endregion // AWindowViewModelBase
@@ -132,6 +137,23 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             CurrentTime = DateTime.Now.ToLongTimeString();
         }
 
+
+        /// <summary>
+        /// Действия на событие закрытия окна "О программе"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void OnAboutWindowClosed(object? sender, EventArgs e)
+        {
+            // - отписываемся от события и обнуляем текущщий экземпдяр вьюмодел
+            if (sender is IWindow window)
+            {
+                window.Closed -= OnAboutWindowClosed;
+                _aboutWindowViewModel = null;
+            }
+        }
+
         #endregion // EVENTS
 
 
@@ -151,7 +173,18 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         /// <exception cref="NotImplementedException"></exception>
         private void OpenAboutWindow()
         {
-            _windowManager.Show(_aboutWindowViewModel);
+            if (_aboutWindowViewModel == null)
+            {
+                _aboutWindowViewModel = _aboutWindowViewModelFactory.Create();
+                var aboutWindow = _windowManager.Show(_aboutWindowViewModel);
+                aboutWindow.Closed += OnAboutWindowClosed;
+                return;
+            }
+            else
+            {
+                _windowManager.Show(_aboutWindowViewModel);
+            }
+
         }
 
 

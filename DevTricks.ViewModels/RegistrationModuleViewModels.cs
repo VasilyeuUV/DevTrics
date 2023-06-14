@@ -18,11 +18,13 @@ namespace DevTricks.ViewModels
 
             builder.RegisterType<MainWindowViewModel>()     // - регистрируемый тип
                 .As<IMainWindowViewModel>()                 // - контрак вьюмодели (интерфейс, под которым регистрируем тип)
-                .InstancePerDependency();                   // - время жизни вьюмодели (для каждого запроса будет создаваться новый экземпляр вьюмодели)
+                .InstancePerDependency()                    // - время жизни вьюмодели (для каждого запроса будет создаваться новый экземпляр вьюмодели)
+                .ExternallyOwned();                         // - не освобождать автоматически при завершении программы (Вьюмодель должна освобождаться явным образом)
 
             builder.RegisterType<AboutWindowViewModel>()     
                 .As<IAboutWindowViewModel>()                 
-                .InstancePerDependency();                   
+                .InstancePerDependency()
+                .ExternallyOwned()
         }
     }
 }

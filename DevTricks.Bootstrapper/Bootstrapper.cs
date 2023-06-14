@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevTricks.Domain.Factories;
 using DevTricks.Infrastructure;
 using DevTricks.Infrastructure.Common.Services.PathService;
 using DevTricks.Infrastructure.Settings;
@@ -33,6 +34,7 @@ namespace DevTricks.Bootstrapper
             _container = containerBuilder.Build();
         }
 
+
         /// <summary>
         /// Создание главного окна
         /// </summary>
@@ -41,16 +43,12 @@ namespace DevTricks.Bootstrapper
         {
             InitializeDependencies();                   // - инициализация зависимостей
 
-            //// С помощью контейнера зарезолвим главное окно
-            //// т.к. создана зависимость окна от VM, перед созданием окна контейнер создаст VM главного окна
-            //// и использует его инстанс для создания главного окна
-            //var mainWindow = _container.Resolve<IMainWindow>();
-
-            // - после создания Менеджера окна
             var windowManager = _container.Resolve<IWindowManager>();                   // - резолв менеджера окна
 
-            this._mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();     // - резолв вьюможели главного окна
-            var mainWindow = windowManager.Show(this._mainWindowViewModel);             // - создание и показ окна
+            // - резолвим фабрику для вьюмодели главного окна
+            var mainWindowViewModelFactory = _container.Resolve<IFactory<IMainWindowViewModel>>();
+            this._mainWindowViewModel = mainWindowViewModelFactory.Create();                            // - создаём вьюмодель главного окна с помощью фабрики
+            var mainWindow = windowManager.Show(this._mainWindowViewModel);                             // - создание и показ окна
 
             // Проверим, кстится ли это к классу Window. Если нет, то exception
             if (mainWindow is not Window window)

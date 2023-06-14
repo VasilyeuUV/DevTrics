@@ -28,5 +28,12 @@ namespace DevTricks.ViewModels.Windows
         /// Закрытие окна
         /// </summary>
         void Close();
+
+
+        /// <summary>
+        /// Активация существующего окна
+        /// </summary>
+        /// <returns></returns>
+        bool Activate();
     }
 }
