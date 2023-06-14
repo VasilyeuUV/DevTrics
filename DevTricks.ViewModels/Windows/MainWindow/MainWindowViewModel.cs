@@ -1,4 +1,5 @@
-﻿using DevTricks.Domain.Settings.MainWindowSettings;
+﻿using DevTricks.Domain.DispatcherTimer;
+using DevTricks.Domain.Settings.MainWindowSettings;
 using DevTricks.Domain.Version;
 using DevTricks.ViewModels.Commands;
 using DevTricks.ViewModels.Windows.AboutWindow;
@@ -11,11 +12,15 @@ namespace DevTricks.ViewModels.Windows.MainWindow
     /// </summary>
     public class MainWindowViewModel : AWindowViewModelBase<IMainWindowMementoWrapper>, IMainWindowViewModel
     {
-        private readonly IWindowManager _windowManager;                 // - менеджер окон
-        private readonly IAboutWindowViewModel _aboutWindowViewModel;   // - вьюмодель окна "О программе"
+        private readonly IWindowManager _windowManager;                     // - менеджер окон
+        private readonly IAboutWindowViewModel _aboutWindowViewModel;       // - вьюмодель окна "О программе"
+
+        private readonly IDispatcherTimer _dispatcherTimer;                 // - таймер
 
         private Command _closeMainWindowCommand;
         private Command _openAboutWindowCommand;
+        private string _currentDate;
+        private string _currentTime;
 
 
         /// <summary>
@@ -25,12 +30,17 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             IMainWindowMementoWrapper mainWindowMementoWrapper,
             IWindowManager windowManager,
             IAboutWindowViewModel aboutWindowViewModel,
-            IApplicationVersionProvider applicationVersionProvider
+            IApplicationVersionProvider applicationVersionProvider,
+            IDispatcherTimerFactory dispatcherTimerFactory
             )
             : base(mainWindowMementoWrapper)
         {
             _windowManager = windowManager;
             this._aboutWindowViewModel = aboutWindowViewModel;
+
+            this._dispatcherTimer = dispatcherTimerFactory.Create(TimeSpan.FromSeconds(1));
+            this._dispatcherTimer.Tick += OnDispatcherTimerTick;
+            this._dispatcherTimer.Start();
 
             // - Команды
             _closeMainWindowCommand = new Command(CloseMainWindow);
@@ -40,12 +50,52 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         }
 
 
+        //############################################################################################################
+        #region AWindowViewModelBase
+
+        public override void WindowClosing()
+        {
+            _windowManager.Close(_aboutWindowViewModel);        // - закрытие окна "О программе"
+        }
+
+        #endregion // AWindowViewModelBase
+
+
         /// <summary>
         /// Заголовок окна
         /// </summary>
         public string Title => "DevTriks";
 
+
         public string Version { get; }
+
+
+        /// <summary>
+        /// Текущая дата
+        /// </summary>
+        public string CurrentDate
+        {
+            get => _currentDate;
+            private set
+            {
+                _currentDate = value;
+                InvokePropertyChanged(nameof(CurrentDate));
+            }
+        }
+
+
+        /// <summary>
+        /// Текущее время
+        /// </summary>
+        public string CurrentTime
+        {
+            get => _currentTime;
+            private set
+            {
+                _currentTime = value;
+                InvokePropertyChanged(nameof(CurrentTime));
+            }
+        }
 
 
         //############################################################################################################
@@ -68,20 +118,21 @@ namespace DevTricks.ViewModels.Windows.MainWindow
 
 
         //############################################################################################################
-        #region AWindowViewModelBase
+        #region EVENTS
 
-        public override void WindowClosing()
+        /// <summary>
+        /// Действия на счёт таймера
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void OnDispatcherTimerTick(object? sender, EventArgs e)
         {
-            _windowManager.Close(_aboutWindowViewModel);        // - закрытие окна "О программе"
+            CurrentDate = DateTime.Now.ToShortDateString();
+            CurrentTime = DateTime.Now.ToLongTimeString();
         }
 
-        #endregion // AWindowViewModelBase
-
-
-        //############################################################################################################
-        #region IMainWindowViewModel
-
-        #endregion // IMainWindowViewModel
+        #endregion // EVENTS
 
 
         /// <summary>
@@ -102,5 +153,18 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         {
             _windowManager.Show(_aboutWindowViewModel);
         }
+
+
+        //############################################################################################################
+        #region IMainWindowViewModel
+
+
+        public void Dispose()
+        {
+            _dispatcherTimer.Tick -= OnDispatcherTimerTick;
+        }
+
+        #endregion // IMainWindowViewModel
+
     }
 }

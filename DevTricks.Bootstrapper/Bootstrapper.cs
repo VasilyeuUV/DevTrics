@@ -3,18 +3,18 @@ using DevTricks.Infrastructure;
 using DevTricks.Infrastructure.Common.Services.PathService;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.ViewModels;
-using DevTricks.ViewModels.MainWindow;
 using DevTricks.ViewModels.Windows;
+using DevTricks.ViewModels.Windows.MainWindow;
 using DevTricks.Views;
-using DevTricks.Views.MainWindow;
 using System.Windows;
 
 namespace DevTricks.Bootstrapper
 {
     public class Bootstrapper : IDisposable
     {
-        private IContainer _container;      // - контейнер зависимостей
+        private IContainer _container;                          // - контейнер зависимостей
 
+        private IMainWindowViewModel _mainWindowViewModel;      // - вьюмодель клавного окна приложения
 
         /// <summary>
         /// CTOR
@@ -47,9 +47,10 @@ namespace DevTricks.Bootstrapper
             //var mainWindow = _container.Resolve<IMainWindow>();
 
             // - после создания Менеджера окна
-            var windowManager = _container.Resolve<IWindowManager>();               // - резолв менеджера окна
-            var mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();   // - резолв вьюможели главного окна
-            var mainWindow = windowManager.Show(mainWindowViewModel);               // - создание и показ окна
+            var windowManager = _container.Resolve<IWindowManager>();                   // - резолв менеджера окна
+
+            this._mainWindowViewModel = _container.Resolve<IMainWindowViewModel>();     // - резолв вьюможели главного окна
+            var mainWindow = windowManager.Show(this._mainWindowViewModel);             // - создание и показ окна
 
             // Проверим, кстится ли это к классу Window. Если нет, то exception
             if (mainWindow is not Window window)
@@ -78,7 +79,8 @@ namespace DevTricks.Bootstrapper
 
         public void Dispose()
         {
-            _container?.Dispose();      // - освобождаем контейнер
+            _mainWindowViewModel.Dispose();     // - освобождаем вьюмодель главного окна
+            _container?.Dispose();              // - освобождаем контейнер
         }
 
         #endregion // IDisposable

@@ -5,7 +5,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow
     /// <summary>
     /// Интерфейс для регистрации и внедрения Гланого окна приложения
     /// </summary>
-    public interface IMainWindowViewModel : IWindowViewModel
+    public interface IMainWindowViewModel : IWindowViewModel, IDisposable
     {
     }
 }

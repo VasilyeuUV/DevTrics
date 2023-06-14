@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using DevTricks.Domain.DispatcherTimer;
 using DevTricks.ViewModels.Windows;
+using DevTricks.Views.DispatcherTimer;
 using DevTricks.Views.Windows;
 using DevTricks.Views.Windows.AboutWindow;
 using DevTricks.Views.Windows.MainWindow;
@@ -27,9 +29,12 @@ namespace DevTricks.Views
             builder.RegisterType<MainWindow>()              // - регистрируемый тип (главное окно)
                 .As<IMainWindow>()                          // - контракт вьюшки (интерфейс, под которым регистрируем тип)
                 .InstancePerDependency();                   // - время жизни вьюшки (такой же как и для вьюмодели)
-            builder.RegisterType<AboutWindow>()   
+            builder.RegisterType<AboutWindow>()             // - регистрация окна "О программе" 
                 .As<IAboutWindow>()                          
-                .InstancePerDependency();                   
+                .InstancePerDependency();
+            builder.RegisterType<DispatcherTimerWrapperFactory>()  // - регистрация фабрики Таймера
+                .As<IDispatcherTimerFactory>()
+                .SingleInstance();
 
         }
     }
