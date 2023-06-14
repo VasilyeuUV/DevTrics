@@ -1,6 +1,6 @@
 ﻿using DevTricks.ViewModels.Windows;
 
-namespace DevTricks.Views.MainWindow
+namespace DevTricks.Views.Windows.MainWindow
 {
     /// <summary>
     /// Контракт главного окна

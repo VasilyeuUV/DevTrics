@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DevTricks.Infrastructure;
+using DevTricks.Infrastructure.Common.Services.PathService;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.ViewModels;
 using DevTricks.ViewModels.MainWindow;
@@ -14,6 +15,10 @@ namespace DevTricks.Bootstrapper
     {
         private IContainer _container;      // - контейнер зависимостей
 
+
+        /// <summary>
+        /// CTOR
+        /// </summary>
         public Bootstrapper()
         {
             var containerBuilder = new ContainerBuilder();
@@ -59,9 +64,12 @@ namespace DevTricks.Bootstrapper
         /// </summary>
         private void InitializeDependencies()
         {
-            // Резолвим и инициализируем Memento главного окна приложения
-            _container.Resolve<IMainWindowMementoWrapperInitializer>()
-                .Initialize();
+            _container.Resolve<IPathServiceInitializer>().Initialize();                 // - инициализация сервиса PathService
+
+            // - получение коллекции Wrapper-ов
+            var windowMementoWrapperInitializers = _container.Resolve<IEnumerable<IWindowMementoWrapperInitializer>>();
+            foreach (var windowMementoWrapperInitializer in windowMementoWrapperInitializers)
+                windowMementoWrapperInitializer.Initialize();                           // - инициализация Wrapper-а Memento окна приложения   
         }
 
 

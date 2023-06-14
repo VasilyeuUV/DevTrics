@@ -1,8 +1,10 @@
 ﻿using Autofac;
-using DevTricks.ViewModels.MainWindow;
 using DevTricks.ViewModels.Windows;
+using DevTricks.ViewModels.Windows.AboutWindow;
+using DevTricks.ViewModels.Windows.MainWindow;
 using DevTricks.Views.Factories;
-using DevTricks.Views.MainWindow;
+using DevTricks.Views.Windows.AboutWindow;
+using DevTricks.Views.Windows.MainWindow;
 
 namespace DevTricks.Bootstrapper.Factories
 {
@@ -17,7 +19,8 @@ namespace DevTricks.Bootstrapper.Factories
         // (по мере добавления окон в приложение, регистрировать их здесь)
         private readonly Dictionary<Type, Type> _map = new ()
         {
-            { typeof(IMainWindowViewModel), typeof(IMainWindow) }
+            { typeof(IMainWindowViewModel), typeof(IMainWindow) },
+            { typeof(IAboutWindowViewModel), typeof(IAboutWindow) }
         };
 
 

@@ -14,6 +14,7 @@ namespace DevTricks.ViewModels.Commands
     public class Command : ICommand
     {
         private readonly Action _execute;       // - выполняемая логика команды
+        private ICommand openAboutWindow;
 
 
         /// <summary>
@@ -23,6 +24,11 @@ namespace DevTricks.ViewModels.Commands
         public Command(Action execute)
         {
             this._execute = execute;
+        }
+
+        public Command(ICommand openAboutWindow)
+        {
+            this.openAboutWindow = openAboutWindow;
         }
 
 

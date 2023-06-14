@@ -1,9 +1,9 @@
 ﻿namespace DevTricks.Infrastructure.Settings
 {
     /// <summary>
-    /// Контракт для инициализатора главного окна
+    /// Интерфейс для инициализации Wrapper-ов окон
     /// </summary>
-    public interface IMainWindowMementoWrapperInitializer
+    public interface IWindowMementoWrapperInitializer
     {
         /// <summary>
         /// Инициализация Wrapperа

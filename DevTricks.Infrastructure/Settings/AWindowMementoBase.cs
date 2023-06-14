@@ -3,10 +3,11 @@
 namespace DevTricks.Infrastructure.Settings
 {
     /// <summary>
-    /// Класс, в котором храним настройки главного окна
+    /// Абстрактный класс Memento 
+    /// (для использования разными окнами))
     /// </summary>
-    [DataContract]                                  // - этот класс - контракт данных, который может быть сериализован (необязателен, но повышает читаемость кода)
-    internal class MainWindowMemento                // - Memento - окончание для классов настроек
+    [DataContract]
+    internal abstract class AWindowMementoBase
     {
         /// <summary>
         /// Координата окна по горизонтали
@@ -37,18 +38,5 @@ namespace DevTricks.Infrastructure.Settings
         /// </summary>
         [DataMember(Name = "isMaximized")]
         public bool IsMaximized { get; set; }
-
-
-        /// <summary>
-        /// CTOR
-        /// </summary>
-        public MainWindowMemento()
-        {
-            this.Left = 100;
-            this.Top = 100;
-            this.Width = 600;
-            this.Height = 400;
-            this.IsMaximized = true;
-        }
     }
 }

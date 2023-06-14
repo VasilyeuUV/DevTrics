@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using DevTricks.ViewModels.Windows;
-using DevTricks.Views.MainWindow;
 using DevTricks.Views.Windows;
+using DevTricks.Views.Windows.AboutWindow;
+using DevTricks.Views.Windows.MainWindow;
 
 namespace DevTricks.Views
 {
@@ -10,6 +11,11 @@ namespace DevTricks.Views
     /// </summary>
     public class RegistrationModuleViews : Module
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder">Контейнер для регистрации</param>
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
@@ -18,11 +24,12 @@ namespace DevTricks.Views
                 .As<IWindowManager>()
                 .SingleInstance();
 
-            // Контейнер для регистрации
-            builder.RegisterType<MainWindow.MainWindow>()   // - регистрируемый тип (главное окно)
+            builder.RegisterType<MainWindow>()              // - регистрируемый тип (главное окно)
                 .As<IMainWindow>()                          // - контракт вьюшки (интерфейс, под которым регистрируем тип)
                 .InstancePerDependency();                   // - время жизни вьюшки (такой же как и для вьюмодели)
-
+            builder.RegisterType<AboutWindow>()   
+                .As<IAboutWindow>()                          
+                .InstancePerDependency();                   
 
         }
     }

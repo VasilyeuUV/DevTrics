@@ -1,6 +1,4 @@
-﻿using DevTricks.ViewModels.MainWindow;
-
-namespace DevTricks.Views.MainWindow
+﻿namespace DevTricks.Views.Windows.MainWindow
 {
     public partial class MainWindow : IMainWindow
     {
@@ -19,11 +17,5 @@ namespace DevTricks.Views.MainWindow
             // Переданная вьюмодель является контекстом данных для окна.
             DataContext = mainWindowViewModel;
         }
-
-
-        //################################################################################################
-        #region IMainWindow
-
-        #endregion // IMainWindow
     }
 }

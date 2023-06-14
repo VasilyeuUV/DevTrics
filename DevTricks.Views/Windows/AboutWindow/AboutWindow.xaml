@@ -1,0 +1,32 @@
+﻿<Window x:Class="DevTricks.Views.Windows.AboutWindow.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DevTricks.Views.Windows.AboutWindow"
+        mc:Ignorable="d"
+        
+        xmlns:aboutWindow="clr-namespace:DevTricks.ViewModels.Windows.AboutWindow;assembly=DevTricks.ViewModels"
+        
+        Title="About"         
+        Left="{Binding Left, Mode=TwoWay}"
+        Top="{Binding Top, Mode=TwoWay}"
+        Height="{Binding Height, Mode=TwoWay}" 
+        Width="{Binding Width, Mode=TwoWay}"
+        WindowState="Normal"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        
+        d:DataContext="{d:DesignInstance aboutWindow:AboutWindowViewModel}"
+        >
+    <StackPanel Orientation="Vertical"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+        <TextBlock Text="DevTricks"
+                   FontWeight="Bold"
+                   FontSize="26"/>
+        <TextBlock Text="Version 1.0.0"
+                   TextAlignment="Center"/>
+
+    </StackPanel>
+</Window>

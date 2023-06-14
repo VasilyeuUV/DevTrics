@@ -1,10 +1,9 @@
 ﻿namespace DevTricks.Domain.Settings
 {
     /// <summary>
-    /// Оболочка для работы с Memento главного окна (MainWindowMemento)
-    /// (Контракт Wrapper-а для потребителя)
+    /// Базоый интерфейс для настроек окон
     /// </summary>
-    public interface IMainWindowMementoWrapper
+    public interface IWindowMementoWrapper
     {
         // 1. Свойства (как и у Memento)
 
