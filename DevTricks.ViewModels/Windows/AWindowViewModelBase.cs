@@ -5,7 +5,7 @@ namespace DevTricks.ViewModels.Windows
     /// <summary>
     /// Базовый класс для оконных ViewModels
     /// </summary>
-    public abstract class AWindowViewModelBase<TWindowMementoWrapper>
+    public abstract class AWindowViewModelBase<TWindowMementoWrapper> : IWindowViewModel
         where TWindowMementoWrapper : class, IWindowMementoWrapper
     {
         private readonly TWindowMementoWrapper _windowMementoWrapper;
@@ -73,6 +73,17 @@ namespace DevTricks.ViewModels.Windows
         }
 
         #endregion // Свойства окна
+
+
+        //############################################################################################################
+        #region IWindowViewModel
+
+
+        public virtual void WindowClosing()
+        {
+        }
+
+        #endregion // IWindowViewModel
 
 
     }

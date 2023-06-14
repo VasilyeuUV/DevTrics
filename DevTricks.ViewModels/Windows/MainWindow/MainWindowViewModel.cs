@@ -62,6 +62,17 @@ namespace DevTricks.ViewModels.Windows.MainWindow
 
 
         //############################################################################################################
+        #region AWindowViewModelBase
+
+        public override void WindowClosing()
+        {
+            _windowManager.Close(_aboutWindowViewModel);        // - закрытие окна "О программе"
+        }
+
+        #endregion // AWindowViewModelBase
+
+
+        //############################################################################################################
         #region IMainWindowViewModel
 
         #endregion // IMainWindowViewModel

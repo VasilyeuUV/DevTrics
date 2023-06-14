@@ -5,5 +5,9 @@
     /// </summary>
     public interface IWindowViewModel
     {
+        /// <summary>
+        /// Метод об уведомлении о намерении окна закрыться
+        /// </summary>
+        void WindowClosing();
     }
 }

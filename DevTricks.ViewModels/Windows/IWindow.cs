@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace DevTricks.ViewModels.Windows
 {
@@ -11,6 +7,16 @@ namespace DevTricks.ViewModels.Windows
     /// </summary>
     public interface IWindow
     {
+        /// <summary>
+        /// Событие перед закрытием окна
+        /// </summary>
+        event CancelEventHandler Closing;
+
+        /// <summary>
+        /// Событие при закрытии окна
+        /// </summary>
+        event EventHandler Closed;
+
 
         /// <summary>
         /// Показ окна
