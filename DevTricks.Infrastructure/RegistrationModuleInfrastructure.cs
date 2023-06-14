@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using DevTricks.Domain.Settings.AboutWindowSettings;
 using DevTricks.Domain.Settings.MainWindowSettings;
+using DevTricks.Domain.Version;
 using DevTricks.Infrastructure.Common.Services.PathService;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.Infrastructure.Settings.AboutWindowSettings;
 using DevTricks.Infrastructure.Settings.MainWindowSettings;
+using DevTricks.Infrastructure.Version;
 
 namespace DevTricks.Infrastructure
 {
@@ -36,6 +38,11 @@ namespace DevTricks.Infrastructure
             builder.RegisterType<AboutWindowMementoWrapper>()
                 .As<IAboutWindowMementoWrapper>()
                 .As<IWindowMementoWrapperInitializer>()
+                .SingleInstance();
+
+            // - Регистрация провайдера версии приложения
+            builder.RegisterType<ApplicationVersionProvider>()
+                .As<IApplicationVersionProvider>()
                 .SingleInstance();
 
         }

@@ -25,7 +25,7 @@
         <TextBlock Text="DevTricks"
                    FontWeight="Bold"
                    FontSize="26"/>
-        <TextBlock Text="Version 1.0.0"
+        <TextBlock Text="{Binding Version}"
                    TextAlignment="Center"/>
 
     </StackPanel>

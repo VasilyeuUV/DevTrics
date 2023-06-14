@@ -1,4 +1,5 @@
 ﻿using DevTricks.Domain.Settings.MainWindowSettings;
+using DevTricks.Domain.Version;
 using DevTricks.ViewModels.Commands;
 using DevTricks.ViewModels.Windows.AboutWindow;
 using System.Windows.Input;
@@ -16,13 +17,15 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         private Command _closeMainWindowCommand;
         private Command _openAboutWindowCommand;
 
+
         /// <summary>
         /// CTOR
         /// </summary>
         public MainWindowViewModel(
             IMainWindowMementoWrapper mainWindowMementoWrapper,
             IWindowManager windowManager,
-            IAboutWindowViewModel aboutWindowViewModel
+            IAboutWindowViewModel aboutWindowViewModel,
+            IApplicationVersionProvider applicationVersionProvider
             )
             : base(mainWindowMementoWrapper)
         {
@@ -32,6 +35,8 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             // - Команды
             _closeMainWindowCommand = new Command(CloseMainWindow);
             _openAboutWindowCommand = new Command(OpenAboutWindow);
+
+            Version = $"Version {applicationVersionProvider.Version.ToString(3)}";
         }
 
 
@@ -40,6 +45,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         /// </summary>
         public string Title => "DevTriks";
 
+        public string Version { get; }
 
 
         //############################################################################################################
