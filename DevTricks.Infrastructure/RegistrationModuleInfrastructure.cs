@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using DevTricks.Domain.Rest;
 using DevTricks.Domain.Settings.AboutWindowSettings;
 using DevTricks.Domain.Settings.MainWindowSettings;
 using DevTricks.Domain.Version;
 using DevTricks.Infrastructure.Common.Services.PathService;
+using DevTricks.Infrastructure.Rest;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.Infrastructure.Settings.AboutWindowSettings;
 using DevTricks.Infrastructure.Settings.MainWindowSettings;
@@ -43,6 +45,11 @@ namespace DevTricks.Infrastructure
             // - Регистрация провайдера версии приложения
             builder.RegisterType<ApplicationVersionProvider>()
                 .As<IApplicationVersionProvider>()
+                .SingleInstance();
+
+            // - Регистрация RestApiExecutor
+            builder.RegisterType<ApiRequestExecutor>()
+                .As<IApiRequestExecutor>()
                 .SingleInstance();
 
         }
