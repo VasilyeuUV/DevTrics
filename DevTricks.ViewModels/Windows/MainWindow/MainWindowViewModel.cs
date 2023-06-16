@@ -2,6 +2,7 @@
 using DevTricks.Domain.Factories;
 using DevTricks.Domain.Settings.MainWindowSettings;
 using DevTricks.Domain.Version;
+using DevTricks.ViewModels.Authors;
 using DevTricks.ViewModels.Commands;
 using DevTricks.ViewModels.Windows.AboutWindow;
 using System.Windows.Input;
@@ -13,16 +14,20 @@ namespace DevTricks.ViewModels.Windows.MainWindow
     /// </summary>
     public class MainWindowViewModel : AWindowViewModelBase<IMainWindowMementoWrapper>, IMainWindowViewModel
     {
-        private readonly IWindowManager _windowManager;                                 // - менеджер окон
-        private readonly IFactory<IAboutWindowViewModel> _aboutWindowViewModelFactory;  // - фабрика для вьюмодели окна "О программе"
-        private readonly IDispatcherTimer _dispatcherTimer;                             // - таймер
+        private readonly IWindowManager _windowManager;                                             // - менеджер окон
+        private readonly IFactory<IAboutWindowViewModel> _aboutWindowViewModelFactory;              // - фабрика для вьюмодели окна "О программе"
+        private readonly IFactory<IAuthorCollectionViewModel> _authorCollectionViewModelFactory;    // - фабрика вьюмодели коллекции авторов
+        private readonly IDispatcherTimer _dispatcherTimer;                                         // - таймер
 
-        private IAboutWindowViewModel? _aboutWindowViewModel;                           // - вьюмодель окна "О программе"
+        private IAboutWindowViewModel? _aboutWindowViewModel;                                       // - вьюмодель окна "О программе"
 
         private Command _closeMainWindowCommand;
         private Command _openAboutWindowCommand;
+        private AsyncCommand _openAuthorCollectionCommand;
+
         private string _currentDate;
         private string _currentTime;
+        private IMainWindowContentViewModel _contentViewModel;
 
 
         /// <summary>
@@ -33,13 +38,14 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             IWindowManager windowManager,
             IApplicationVersionProvider applicationVersionProvider,
             IDispatcherTimerFactory dispatcherTimerFactory,
-            IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory
+            IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory,
+            IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory
             )
             : base(mainWindowMementoWrapper)
         {
             _windowManager = windowManager;
             this._aboutWindowViewModelFactory = aboutWindowViewModelFactory;
-
+            this._authorCollectionViewModelFactory = authorCollectionViewModelFactory;
             this._dispatcherTimer = dispatcherTimerFactory.Create(TimeSpan.FromSeconds(1));
             this._dispatcherTimer.Tick += OnDispatcherTimerTick;
             this._dispatcherTimer.Start();
@@ -47,6 +53,8 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             // - Команды
             _closeMainWindowCommand = new Command(CloseMainWindow);
             _openAboutWindowCommand = new Command(OpenAboutWindow);
+            _openAuthorCollectionCommand = new AsyncCommand(OpenAuthorCollectionAsync);
+
 
             Version = $"Version {applicationVersionProvider.Version.ToString(3)}";
         }
@@ -84,7 +92,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             private set
             {
                 _currentDate = value;
-                InvokePropertyChanged(nameof(CurrentDate));
+                InvokePropertyChanged(); // - имя свойства передаётся с помощью атрибута CallerMemberName в базовой вьюмодели
             }
         }
 
@@ -98,7 +106,21 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             private set
             {
                 _currentTime = value;
-                InvokePropertyChanged(nameof(CurrentTime));
+                InvokePropertyChanged();
+            }
+        }
+
+
+        /// <summary>
+        /// Контент главного окна
+        /// </summary>
+        public IMainWindowContentViewModel ContentViewModel
+        {
+            get => _contentViewModel;
+            private set
+            {
+                _contentViewModel = value;
+                InvokePropertyChanged();
             }
         }
 
@@ -113,11 +135,16 @@ namespace DevTricks.ViewModels.Windows.MainWindow
 
 
         /// <summary>
-        /// Свойство для открытия окна "О программе"
+        /// Свойство для команды для открытия окна "О программе"
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
         public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
 
+
+        /// <summary>
+        /// Свойство для команды получения авторов книг от API
+        /// </summary>
+        public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
 
         #endregion // Команды
 
@@ -185,6 +212,20 @@ namespace DevTricks.ViewModels.Windows.MainWindow
                 _windowManager.Show(_aboutWindowViewModel);
             }
 
+        }
+
+
+        /// <summary>
+        /// Получение списка авторов книг
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private async Task OpenAuthorCollectionAsync()
+        {
+            var authorCollectionViewModel = _authorCollectionViewModelFactory.Create();
+            await authorCollectionViewModel.InitializeAsync();                          // - здесь отработает логика запроса данных от REST-сервиса
+
+            ContentViewModel = authorCollectionViewModel;
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace DevTricks.ViewModels
 {
@@ -11,7 +12,7 @@ namespace DevTricks.ViewModels
         /// Метод для удобства использования Потребителями 
         /// </summary>
         /// <param name="propertyName"></param>
-        protected void InvokePropertyChanged(string propertyName)
+        protected void InvokePropertyChanged([CallerMemberName]string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
