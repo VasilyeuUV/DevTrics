@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using DevTricks.ViewModels.MainWindow;
+using DevTricks.ViewModels.Authors;
+using DevTricks.ViewModels.Extensions;
 using DevTricks.ViewModels.Windows.AboutWindow;
 using DevTricks.ViewModels.Windows.MainWindow;
 
@@ -16,15 +17,12 @@ namespace DevTricks.ViewModels
         {
             base.Load(builder);
 
-            builder.RegisterType<MainWindowViewModel>()     // - регистрируемый тип
-                .As<IMainWindowViewModel>()                 // - контрак вьюмодели (интерфейс, под которым регистрируем тип)
-                .InstancePerDependency()                    // - время жизни вьюмодели (для каждого запроса будет создаваться новый экземпляр вьюмодели)
-                .ExternallyOwned();                         // - не освобождать автоматически при завершении программы (Вьюмодель должна освобождаться явным образом)
+            // - регистрация окон
+            builder.RegisterViewModel<MainWindowViewModel, IMainWindowViewModel>();
+            builder.RegisterViewModel<AboutWindowViewModel, IAboutWindowViewModel>();
 
-            builder.RegisterType<AboutWindowViewModel>()     
-                .As<IAboutWindowViewModel>()                 
-                .InstancePerDependency()
-                .ExternallyOwned()
+            // - регистрация контекста главного окна
+            builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();
         }
     }
 }
