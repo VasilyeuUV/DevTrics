@@ -28,15 +28,15 @@
         <Menu Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem Header="Exit"
-                          Command="{Binding CloseMainWindowCommand}"/>
+                          Command="{Binding MenuViewModel.CloseMainWindowCommand}"/>
             </MenuItem>
             <MenuItem Header="Collections">
                 <MenuItem Header="Authors"
-                          Command="{Binding OpenAuthorCollectionCommand}"/>
+                          Command="{Binding MenuViewModel.OpenAuthorCollectionCommand}"/>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About"
-                          Command="{Binding OpenAboutWindowCommand}"/>
+                          Command="{Binding MenuViewModel.OpenAboutWindowCommand}"/>
             </MenuItem>            
         </Menu>
 

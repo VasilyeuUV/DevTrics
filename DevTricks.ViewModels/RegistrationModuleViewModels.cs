@@ -3,6 +3,7 @@ using DevTricks.ViewModels.Authors;
 using DevTricks.ViewModels.Extensions;
 using DevTricks.ViewModels.Windows.AboutWindow;
 using DevTricks.ViewModels.Windows.MainWindow;
+using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel;
 
 namespace DevTricks.ViewModels
 {
@@ -21,8 +22,10 @@ namespace DevTricks.ViewModels
             builder.RegisterViewModel<MainWindowViewModel, IMainWindowViewModel>();
             builder.RegisterViewModel<AboutWindowViewModel, IAboutWindowViewModel>();
 
-            // - регистрация контекста главного окна
-            builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();
+            // - регистрация вьюмоделей главного окна
+            builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();     // - контент главного окна
+            builder.RegisterViewModel<MainWindowMenuViewModel, IMainWindowMenuViewModel>();         // - меню главного окна
+
         }
     }
 }
