@@ -1,10 +1,4 @@
 ﻿using Autofac;
-using DevTricks.ViewModels.Windows.MainWindow;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevTricks.ViewModels.Extensions
 {
@@ -22,6 +16,7 @@ namespace DevTricks.ViewModels.Extensions
         /// <typeparam name="TInterface">Интерфейс контракта</typeparam>
         /// <param name="builder">Контейнер зависимостей</param>
         public static void RegisterViewModel<TImplementation, TInterface>(this ContainerBuilder builder) 
+            where TInterface : notnull
             where TImplementation : TInterface                  // - generic-тип для реализации должен реализовывать generic-тип контракта (защита от передачи несовместимых типов)
         {
             builder.RegisterType<TImplementation>()             // - регистрируемый тип

@@ -20,14 +20,14 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         private readonly IDispatcherTimer _dispatcherTimer;                                         // - таймер
 
         private IAboutWindowViewModel? _aboutWindowViewModel;                                       // - вьюмодель окна "О программе"
+        private IMainWindowContentViewModel? _contentViewModel;
 
         private Command _closeMainWindowCommand;
         private Command _openAboutWindowCommand;
         private AsyncCommand _openAuthorCollectionCommand;
 
-        private string _currentDate;
-        private string _currentTime;
-        private IMainWindowContentViewModel _contentViewModel;
+        private string _currentDate = string.Empty;
+        private string _currentTime = string.Empty;
 
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         /// <summary>
         /// Контент главного окна
         /// </summary>
-        public IMainWindowContentViewModel ContentViewModel
+        public IMainWindowContentViewModel? ContentViewModel
         {
             get => _contentViewModel;
             private set

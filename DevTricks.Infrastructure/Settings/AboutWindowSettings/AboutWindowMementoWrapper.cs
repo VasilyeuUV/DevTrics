@@ -1,4 +1,5 @@
-﻿using DevTricks.Domain.Settings.AboutWindowSettings;
+﻿using DevTricks.Domain.Settings;
+using DevTricks.Domain.Settings.AboutWindowSettings;
 using DevTricks.Infrastructure.Common.Services.PathService;
 
 namespace DevTricks.Infrastructure.Settings.AboutWindowSettings

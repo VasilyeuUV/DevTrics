@@ -14,7 +14,7 @@
         Top="{Binding Top, Mode=TwoWay}"
         Height="{Binding Height, Mode=TwoWay}" 
         Width="{Binding Width, Mode=TwoWay}"
-        WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter}}"
+        WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
         
         d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}"
         >

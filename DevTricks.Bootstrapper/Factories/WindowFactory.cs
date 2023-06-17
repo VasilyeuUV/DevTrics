@@ -41,7 +41,7 @@ namespace DevTricks.Bootstrapper.Factories
             where TWindowViewModel : IWindowViewModel
         {
             // - проверка, существует ли тип, переданный в карте соответствия
-            if (!_map.TryGetValue(typeof(TWindowViewModel, out var windowType))
+            if (!_map.TryGetValue(typeof(TWindowViewModel), out var windowType))
                 throw new InvalidOperationException($"There is no window registered for {typeof(TWindowViewModel)}");
 
             // по типу, извлекаем (резолвим) окно из контейнера

@@ -34,7 +34,10 @@ namespace DevTricks.Infrastructure.Rest
             var content = await httpResponseMessage.Content.ReadAsStringAsync();    // - читаем контент (json-документ)
             var response = JsonConvert.DeserializeObject<TResponce>(content);       // - десериализация в generic-тип
 
-            return response;
+            if (response != null)
+                return response;
+
+            throw new InvalidOperationException("Response can't be null");
         }
 
         #endregion // IApiRequestExecutor

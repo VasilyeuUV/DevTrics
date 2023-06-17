@@ -15,7 +15,7 @@ namespace DevTricks.Bootstrapper
     {
         private IContainer _container;                          // - контейнер зависимостей
 
-        private IMainWindowViewModel _mainWindowViewModel;      // - вьюмодель клавного окна приложения
+        private IMainWindowViewModel? _mainWindowViewModel;      // - вьюмодель клавного окна приложения
 
         /// <summary>
         /// CTOR
@@ -77,7 +77,7 @@ namespace DevTricks.Bootstrapper
 
         public void Dispose()
         {
-            _mainWindowViewModel.Dispose();     // - освобождаем вьюмодель главного окна
+            _mainWindowViewModel?.Dispose();    // - освобождаем вьюмодель главного окна
             _container?.Dispose();              // - освобождаем контейнер
         }
 

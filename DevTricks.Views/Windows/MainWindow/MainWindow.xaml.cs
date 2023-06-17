@@ -1,4 +1,6 @@
-﻿namespace DevTricks.Views.Windows.MainWindow
+﻿using DevTricks.ViewModels.Windows.MainWindow;
+
+namespace DevTricks.Views.Windows.MainWindow
 {
     public partial class MainWindow : IMainWindow
     {
