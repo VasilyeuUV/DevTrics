@@ -44,11 +44,11 @@
                         Content="{Binding ContentViewModel}"/>
 
         <StatusBar Grid.Row="2">
-            <StatusBarItem Content="{Binding Version}"/>
+            <StatusBarItem Content="{Binding StatusBarViewModel.Version}"/>
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <StatusBarItem Content="{Binding CurrentDate}"/>
-                    <StatusBarItem Content="{Binding CurrentTime}"/>
+                    <StatusBarItem Content="{Binding StatusBarViewModel.CurrentDate}"/>
+                    <StatusBarItem Content="{Binding StatusBarViewModel.CurrentTime}"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>

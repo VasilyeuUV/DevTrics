@@ -1,12 +1,7 @@
-﻿using DevTricks.Domain.DispatcherTimer;
-using DevTricks.Domain.Factories;
+﻿using DevTricks.Domain.Factories;
 using DevTricks.Domain.Settings.MainWindowSettings;
-using DevTricks.Domain.Version;
-using DevTricks.ViewModels.Authors;
-using DevTricks.ViewModels.Commands;
-using DevTricks.ViewModels.Windows.AboutWindow;
 using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel;
-using System.Windows.Input;
+using DevTricks.ViewModels.Windows.MainWindow.MainWindowStatusBarViewModel;
 
 namespace DevTricks.ViewModels.Windows.MainWindow
 {
@@ -16,13 +11,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow
     public class MainWindowViewModel : AWindowViewModelBase<IMainWindowMementoWrapper>, IMainWindowViewModel
     {
         private readonly IWindowManager _windowManager;                                             // - менеджер окон
-
-        private readonly IDispatcherTimer _dispatcherTimer;                                         // - таймер
-
         private IMainWindowContentViewModel? _contentViewModel;
-
-        private string _currentDate = string.Empty;
-        private string _currentTime = string.Empty;
 
 
         /// <summary>
@@ -31,23 +20,20 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         public MainWindowViewModel(
             IMainWindowMementoWrapper mainWindowMementoWrapper,
             IWindowManager windowManager,
-            IApplicationVersionProvider applicationVersionProvider,
-            IDispatcherTimerFactory dispatcherTimerFactory,
-            IFactory<IMainWindowMenuViewModel> mainWindowMenuViewModelFactory
+            IFactory<IMainWindowMenuViewModel> mainWindowMenuViewModelFactory,
+            IFactory<IMainWindowStatusBarViewModel> mainWindowStatusBarViewModelFactory
             )
             : base(mainWindowMementoWrapper)
         {
             this._windowManager = windowManager;
 
-            this._dispatcherTimer = dispatcherTimerFactory.Create(TimeSpan.FromSeconds(1));
-            this._dispatcherTimer.Tick += OnDispatcherTimerTick;
-            this._dispatcherTimer.Start();
 
-            Version = $"Version {applicationVersionProvider.Version.ToString(3)}";
 
             MenuViewModel = mainWindowMenuViewModelFactory.Create();
             MenuViewModel.MainWindowClosingRequested += OnMainWindowClosingRequested;
             MenuViewModel.ContentViewModelChanged += OnContentViewModelChanged;
+
+            StatusBarViewModel = mainWindowStatusBarViewModelFactory.Create();
         }
 
 
@@ -69,38 +55,6 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         /// </summary>
         public string Title => "DevTriks";
 
-
-        public string Version { get; }
-
-
-        /// <summary>
-        /// Текущая дата
-        /// </summary>
-        public string CurrentDate
-        {
-            get => _currentDate;
-            private set
-            {
-                _currentDate = value;
-                InvokePropertyChanged(); // - имя свойства передаётся с помощью атрибута CallerMemberName в базовой вьюмодели
-            }
-        }
-
-
-        /// <summary>
-        /// Текущее время
-        /// </summary>
-        public string CurrentTime
-        {
-            get => _currentTime;
-            private set
-            {
-                _currentTime = value;
-                InvokePropertyChanged();
-            }
-        }
-
-
         /// <summary>
         /// Вьюмодель контента главного окна
         /// </summary>
@@ -114,27 +68,19 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             }
         }
 
-
         /// <summary>
         /// Вьюмодель меню главного окна
         /// </summary>
         public IMainWindowMenuViewModel MenuViewModel { get; }
 
+        /// <summary>
+        /// Вьюмодель строки состояния главного окна
+        /// </summary>
+        public IMainWindowStatusBarViewModel StatusBarViewModel { get; }
+
 
         //############################################################################################################
         #region EVENTS
-
-        /// <summary>
-        /// Действия на счёт таймера
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        private void OnDispatcherTimerTick(object? sender, EventArgs e)
-        {
-            CurrentDate = DateTime.Now.ToShortDateString();
-            CurrentTime = DateTime.Now.ToLongTimeString();
-        }
 
 
         /// <summary>
@@ -169,10 +115,9 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             MenuViewModel.MainWindowClosingRequested -= OnMainWindowClosingRequested;
             MenuViewModel.ContentViewModelChanged -= OnContentViewModelChanged;
 
-            _dispatcherTimer.Tick -= OnDispatcherTimerTick;
+            StatusBarViewModel.Dispose();
         }
 
         #endregion // IMainWindowViewModel
-
     }
 }

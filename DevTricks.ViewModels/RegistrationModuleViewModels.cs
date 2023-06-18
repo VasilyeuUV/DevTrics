@@ -4,6 +4,7 @@ using DevTricks.ViewModels.Extensions;
 using DevTricks.ViewModels.Windows.AboutWindow;
 using DevTricks.ViewModels.Windows.MainWindow;
 using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel;
+using DevTricks.ViewModels.Windows.MainWindow.MainWindowStatusBarViewModel;
 
 namespace DevTricks.ViewModels
 {
@@ -23,8 +24,9 @@ namespace DevTricks.ViewModels
             builder.RegisterViewModel<AboutWindowViewModel, IAboutWindowViewModel>();
 
             // - регистрация вьюмоделей главного окна
-            builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();     // - контент главного окна
-            builder.RegisterViewModel<MainWindowMenuViewModel, IMainWindowMenuViewModel>();         // - меню главного окна
+            builder.RegisterViewModel<AuthorCollectionViewModel, IAuthorCollectionViewModel>();             // - контент главного окна
+            builder.RegisterViewModel<MainWindowMenuViewModel, IMainWindowMenuViewModel>();                 // - меню главного окна
+            builder.RegisterViewModel<MainWindowStatusBarViewModel, IMainWindowStatusBarViewModel>();       // - строка состояния главного окна
 
         }
     }
