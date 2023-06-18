@@ -1,4 +1,4 @@
-﻿using DevTricks.Infrastructure.Common.Services.PathService;
+﻿using DevTricks.Infrastructure.Common;
 using DevTricks.Infrastructure.Settings;
 using Newtonsoft.Json;
 

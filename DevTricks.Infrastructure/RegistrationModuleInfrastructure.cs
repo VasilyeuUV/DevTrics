@@ -3,7 +3,6 @@ using DevTricks.Domain.Rest;
 using DevTricks.Domain.Settings.AboutWindowSettings;
 using DevTricks.Domain.Settings.MainWindowSettings;
 using DevTricks.Domain.Version;
-using DevTricks.Infrastructure.Common.Services.PathService;
 using DevTricks.Infrastructure.Rest;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.Infrastructure.Settings.AboutWindowSettings;
@@ -21,12 +20,6 @@ namespace DevTricks.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-
-            // - Регистрация сервиса PathService
-            builder.RegisterType<PathService>()
-                .As<IPathService>()
-                .As<IPathServiceInitializer>()
-                .SingleInstance();
 
             // - Регистрация Wrapper главного окна под двумя интерфейсами
             builder.RegisterType<MainWindowMementoWrapper>()

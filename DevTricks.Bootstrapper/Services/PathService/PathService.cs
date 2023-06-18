@@ -1,6 +1,4 @@
-﻿using DevTricks.Domain.Settings;
-
-namespace DevTricks.Infrastructure.Common.Services.PathService
+﻿namespace DevTricks.Bootstrapper.Services.PathService
 {
     /// <summary>
     /// Сервис для работы с путями к файлам и каталогам

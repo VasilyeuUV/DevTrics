@@ -1,4 +1,4 @@
-﻿namespace DevTricks.Infrastructure.Common.Services.PathService
+﻿namespace DevTricks.Infrastructure.Common
 {
     /// <summary>
     /// Контракт сервиса для работы с путями к файлам и каталогам

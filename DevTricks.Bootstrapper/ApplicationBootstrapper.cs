@@ -1,0 +1,66 @@
+﻿using Autofac;
+using DevTricks.Bootstrapper.Services.PathService;
+
+namespace DevTricks.Bootstrapper
+{
+    public class ApplicationBootstrapper : IDisposable
+    {
+        private readonly IContainer _container;
+
+
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        public ApplicationBootstrapper()
+        {            
+            var containerBuilder = new ContainerBuilder();
+            RegisterDependencies(containerBuilder);
+
+            this._container = containerBuilder.Build();
+
+            InitializeDependencies();
+        }
+
+
+        /// <summary>
+        /// Получение instanse класса Application
+        /// </summary>
+        /// <returns>зарезолвленный instance</returns>
+        public IApplication Createapplication()
+        {
+            return _container.Resolve<IApplication>();
+        }
+
+
+        /// <summary>
+        /// Регистрация зависимостей
+        /// </summary>
+        /// <param name="containerBuilder"></param>
+        private void RegisterDependencies(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterType<Application>().As<IApplication>().SingleInstance();
+            containerBuilder.RegisterType<PathService>().As<IPathService>().As<IPathServiceInitializer>().SingleInstance();
+        }
+
+
+        /// <summary>
+        /// Инициализация зависимостей
+        /// </summary>
+        private void InitializeDependencies()
+        {
+            _container.Resolve<IPathServiceInitializer>().Initialize();                 // - инициализация сервиса PathService
+        }
+
+
+        //############################################################################################################
+        #region IDisposable
+
+        public void Dispose()
+        {
+            _container?.Dispose();
+        }
+
+        #endregion // IDisposable
+
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using DevTricks.Domain.Settings;
 using DevTricks.Domain.Settings.MainWindowSettings;
-using DevTricks.Infrastructure.Common.Services.PathService;
+using DevTricks.Infrastructure.Common;
 
 namespace DevTricks.Infrastructure.Settings.MainWindowSettings
 {
