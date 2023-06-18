@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevTricks.Bootstrapper.Logging;
 using DevTricks.Domain.Factories;
 using DevTricks.Infrastructure;
 using DevTricks.Infrastructure.Settings;
@@ -6,12 +7,15 @@ using DevTricks.ViewModels;
 using DevTricks.ViewModels.Windows;
 using DevTricks.ViewModels.Windows.MainWindow;
 using DevTricks.Views;
+using NLog;
 using System.Windows;
 
 namespace DevTricks.Bootstrapper
 {
     internal class Application : IApplication, IDisposable
     {
+        private static readonly ILogger Logger = LogManager.GetLogger(nameof(Application));       // - логгер
+
         private ILifetimeScope _applicationLifetimeScope;       // - в качестве контейнера зависимостей, определяет время жизни объектов в контейнере
         private IMainWindowViewModel? _mainWindowViewModel;     // - вьюмодель главного окна приложения
 
@@ -21,6 +25,8 @@ namespace DevTricks.Bootstrapper
         /// </summary>
         public Application(ILifetimeScope lifetimeScope)
         {
+            Logger.Info("Created");
+
             // - этот класс будет зависеть от root-ового LifetimeScope (все остальные зависимости приложения будут создаваться в дочернем)
             this._applicationLifetimeScope = lifetimeScope.BeginLifetimeScope(RegisterDependencies);
         }
@@ -84,6 +90,8 @@ namespace DevTricks.Bootstrapper
         {
             _mainWindowViewModel?.Dispose();            // - освобождаем вьюмодель главного окна
             _applicationLifetimeScope?.Dispose();       // - освобождаем контейнер
+
+            Logger.Info("Disposed");
         }
 
         #endregion // IDisposable

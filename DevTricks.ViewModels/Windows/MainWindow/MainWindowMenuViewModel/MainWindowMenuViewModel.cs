@@ -24,6 +24,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         private Command _closeMainWindowCommand;                    // - команда закрытия главного окна
         private Command _openAboutWindowCommand;                    // - команда открытия окна "О программе"
         private AsyncCommand _openAuthorCollectionCommand;          // - команда для получения коллекции Авторов
+        private Command _throwExceptionCommand;                     // - команда имитации исключительной ситуации
 
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
             _closeMainWindowCommand = new Command(CloseMainWindow);
             _openAboutWindowCommand = new Command(OpenAboutWindow);
             _openAuthorCollectionCommand = new AsyncCommand(OpenAuthorCollectionAsync);
-
+            _throwExceptionCommand = new Command(() =>throw new Exception("Test exception"));
         }
 
 
@@ -122,6 +123,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
         public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
         public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
+        public ICommand ThrowExceptionCommand => _throwExceptionCommand;
 
         public void CloseAboutWindow()
         {

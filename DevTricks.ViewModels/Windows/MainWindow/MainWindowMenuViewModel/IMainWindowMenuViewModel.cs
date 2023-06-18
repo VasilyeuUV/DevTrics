@@ -20,19 +20,24 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
 
 
         /// <summary>
-        /// Свойство для команды на закрытие главного окна
+        /// Команда закрытия главного окна
         /// </summary>
         ICommand CloseMainWindowCommand { get; }
 
         /// <summary>
-        /// Свойство для команды на открытие окна "О программе"
+        /// Команда на открытие окна "О программе"
         /// </summary>
         ICommand OpenAboutWindowCommand { get; }
 
         /// <summary>
-        /// Свойство для команды получения авторов книг от API
+        /// Команда получения авторов книг от API
         /// </summary>
         ICommand OpenAuthorCollectionCommand { get; }
+
+        /// <summary>
+        /// Команда для вызова исключительной ситуации (для тестирования)
+        /// </summary>
+        ICommand ThrowExceptionCommand { get; }
 
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevTricks.Bootstrapper.Logging;
 using DevTricks.Bootstrapper.Services.PathService;
 
 namespace DevTricks.Bootstrapper
@@ -33,6 +34,17 @@ namespace DevTricks.Bootstrapper
 
 
         /// <summary>
+        /// Создань обработчик необработанных ошибок
+        /// </summary>
+        /// <returns></returns>
+        public IUnhandledExceptionHandler CreateUnhandledExceptionHandler()
+        {
+            return _container.Resolve<IUnhandledExceptionHandler>();
+        }
+
+
+
+        /// <summary>
         /// Регистрация зависимостей
         /// </summary>
         /// <param name="containerBuilder"></param>
@@ -40,6 +52,8 @@ namespace DevTricks.Bootstrapper
         {
             containerBuilder.RegisterType<Application>().As<IApplication>().SingleInstance();
             containerBuilder.RegisterType<PathService>().As<IPathService>().As<IPathServiceInitializer>().SingleInstance();
+            containerBuilder.RegisterType<UnhandledExceptionHandler>().As<IUnhandledExceptionHandler>().SingleInstance();       // - для системы логгирования
+            containerBuilder.RegisterType<LogManagerInitializer>().As<ILogManagerInitializer>().SingleInstance();               // - система логгирования
         }
 
 
@@ -49,6 +63,7 @@ namespace DevTricks.Bootstrapper
         private void InitializeDependencies()
         {
             _container.Resolve<IPathServiceInitializer>().Initialize();                 // - инициализация сервиса PathService
+            _container.Resolve<ILogManagerInitializer>();                               // - инициализация Логгера
         }
 
 
