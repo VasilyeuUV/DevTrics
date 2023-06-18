@@ -1,20 +1,22 @@
-﻿using System.Windows;
+﻿using DevTricks.Bootstrapper;
+using System.Windows;
 
 namespace DevTricks
 {
     public partial class App
     {
-        private Bootstrapper.ApplicationBootstrapper? _bootstrapper;
+        private ApplicationBootstrapper? _bootstrapper;
+
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            _bootstrapper = new Bootstrapper.ApplicationBootstrapper();
+            _bootstrapper = new ApplicationBootstrapper();
 
             DispatcherUnhandledException += OnUnhandledExceptionRaised;
 
-            var application = _bootstrapper.Createapplication();
+            var application = _bootstrapper.CreateApplication();
             MainWindow = application.Run();
         }
 

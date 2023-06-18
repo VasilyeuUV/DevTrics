@@ -13,13 +13,14 @@ namespace DevTricks.Infrastructure.Settings.MainWindowSettings
         /// <summary>
         /// CTOR
         /// </summary>
-        public MainWindowMementoWrapper(IPathService pathService) : base(pathService) { }
+        public MainWindowMementoWrapper(IPathService pathService)
+            : base(pathService) { }
 
 
         //############################################################################################################
         #region AWindowMementoWrapperBase
 
-        protected override string MementoName => nameof(MainWindowMementoWrapper).Remove("Wrapper".Length);
+        protected override string MementoName => "MainWindowMemento";
 
         #endregion // AWindowMementoWrapperBase
     }

@@ -32,6 +32,7 @@ namespace DevTricks.Views
             builder.RegisterType<AboutWindow>()             // - регистрация окна "О программе" 
                 .As<IAboutWindow>()                          
                 .InstancePerDependency();
+
             builder.RegisterType<DispatcherTimerWrapperFactory>()  // - регистрация фабрики Таймера
                 .As<IDispatcherTimerFactory>()
                 .SingleInstance();

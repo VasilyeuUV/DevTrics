@@ -1,11 +1,8 @@
-﻿using System.Runtime.Serialization;
-
-namespace DevTricks.Infrastructure.Settings.MainWindowSettings
+﻿namespace DevTricks.Infrastructure.Settings.MainWindowSettings
 {
     /// <summary>
     /// Класс, в котором храним настройки главного окна
     /// </summary>
-    [DataContract]                                              // - этот класс - контракт данных, который может быть сериализован (необязателен, но повышает читаемость кода)
     internal class MainWindowMemento : AWindowMementoBase       // - Memento - окончание для классов настроек
     {
 

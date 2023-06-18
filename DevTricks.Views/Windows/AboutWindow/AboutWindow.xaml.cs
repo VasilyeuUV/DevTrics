@@ -7,7 +7,12 @@ namespace DevTricks.Views.Windows.AboutWindow
     /// </summary>
     public partial class AboutWindow : IAboutWindow
     {
-        public AboutWindow(AboutWindowViewModel aboutWindowViewModel)
+
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        /// <param name="aboutWindowViewModel"></param>
+        public AboutWindow(IAboutWindowViewModel aboutWindowViewModel)
         {
             InitializeComponent();
 

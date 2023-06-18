@@ -13,10 +13,11 @@ namespace DevTricks.Infrastructure.Settings.AboutWindowSettings
         /// CTOR
         /// </summary>
         /// <param name="pathService"></param>
-        public AboutWindowMementoWrapper(IPathService pathService) : base(pathService)
+        public AboutWindowMementoWrapper(IPathService pathService) 
+            : base(pathService)
         {
         }
 
-        protected override string MementoName => nameof(AboutWindowMementoWrapper).Remove("Wrapper".Length);
+        protected override string MementoName => "AboutWindowMemento";
     }
 }

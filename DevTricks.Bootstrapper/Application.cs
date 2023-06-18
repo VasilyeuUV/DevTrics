@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using DevTricks.Bootstrapper.Logging;
 using DevTricks.Domain.Factories;
 using DevTricks.Infrastructure;
 using DevTricks.Infrastructure.Settings;
@@ -16,8 +15,8 @@ namespace DevTricks.Bootstrapper
     {
         private static readonly ILogger Logger = LogManager.GetLogger(nameof(Application));       // - логгер
 
-        private ILifetimeScope _applicationLifetimeScope;       // - в качестве контейнера зависимостей, определяет время жизни объектов в контейнере
-        private IMainWindowViewModel? _mainWindowViewModel;     // - вьюмодель главного окна приложения
+        private readonly ILifetimeScope _applicationLifetimeScope;      // - в качестве контейнера зависимостей, определяет время жизни объектов в контейнере
+        private IMainWindowViewModel? _mainWindowViewModel;             // - вьюмодель главного окна приложения
 
 
         /// <summary>
@@ -64,13 +63,14 @@ namespace DevTricks.Bootstrapper
 
         public Window Run()
         {
-            InitializeDependencies();                   // - инициализация зависимостей
+            InitializeDependencies();                                                                   // - инициализация зависимостей
 
-            var windowManager = _applicationLifetimeScope.Resolve<IWindowManager>();                   // - резолв менеджера окна
+            var windowManager = _applicationLifetimeScope.Resolve<IWindowManager>();                    // - резолв менеджера окна
 
             // - резолвим фабрику для вьюмодели главного окна
             var mainWindowViewModelFactory = _applicationLifetimeScope.Resolve<IFactory<IMainWindowViewModel>>();
             this._mainWindowViewModel = mainWindowViewModelFactory.Create();                            // - создаём вьюмодель главного окна с помощью фабрики
+            
             var mainWindow = windowManager.Show(this._mainWindowViewModel);                             // - создание и показ окна
 
             // Проверим, кстится ли это к классу Window. Если нет, то exception

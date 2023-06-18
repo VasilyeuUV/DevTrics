@@ -1,6 +1,4 @@
-﻿using DevTricks.ViewModels.Windows;
-
-namespace DevTricks.ViewModels.Windows.MainWindow
+﻿namespace DevTricks.ViewModels.Windows.MainWindow
 {
     /// <summary>
     /// Интерфейс для регистрации и внедрения Гланого окна приложения

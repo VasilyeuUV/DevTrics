@@ -1,4 +1,6 @@
-﻿namespace DevTricks.Bootstrapper.Services.PathService
+﻿using DevTricks.Infrastructure.Common;
+
+namespace DevTricks.Bootstrapper.Services.PathService
 {
     /// <summary>
     /// Сервис для работы с путями к файлам и каталогам
@@ -6,20 +8,21 @@
     internal class PathService : IPathService, IPathServiceInitializer
     {
         private bool _isInitialized;                        // - флаг, что Wrapper был инициализирован (false /отсутствие инициализации/ по умолчанию)
-        private string applicationFolder = string.Empty;    // - путь к каталогу приложения для сохранения настроек
+        private string _applicationFolder = string.Empty;   // - путь к каталогу приложения для сохранения настроек
 
 
         //############################################################################################################
         #region IPathService
+
 
         public string ApplicationFolder
         {
             get
             {
                 EnshureInitialized();
-                return applicationFolder;
+                return _applicationFolder;
             }
-            private set => applicationFolder = value;
+            private set => _applicationFolder = value;
         }
 
         #endregion // IPathService
@@ -45,7 +48,7 @@
             const string applicationName = "DevTricks App";
 
             // - формируем путь к папке настроек Приложения (именно через Path, т.к. учитывает слэши)
-            ApplicationFolder = Path.Combine(localApplicationDataPath, company, applicationName, applicationName);
+            ApplicationFolder = Path.Combine(localApplicationDataPath, company, applicationName);
         }
 
         #endregion // IPathServiceInitializer

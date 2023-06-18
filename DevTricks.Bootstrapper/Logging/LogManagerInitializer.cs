@@ -1,4 +1,4 @@
-﻿using DevTricks.Bootstrapper.Services.PathService;
+﻿using DevTricks.Infrastructure.Common;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -34,7 +34,7 @@ namespace DevTricks.Bootstrapper.Logging
         {
             var logginConfiguration = new LoggingConfiguration();
 
-            var appLoggingRule = CrateAppLogingRule();
+            var appLoggingRule = CreateAppLogingRule();
             logginConfiguration.AddRule(appLoggingRule);
 
             return logginConfiguration;
@@ -46,7 +46,7 @@ namespace DevTricks.Bootstrapper.Logging
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        private LoggingRule CrateAppLogingRule()
+        private LoggingRule CreateAppLogingRule()
         {
             // - файловый таргет, отвечает за запись логов в файл
             var appLogFileTarget = new FileTarget()

@@ -8,8 +8,8 @@ namespace DevTricks.Infrastructure.Rest
     /// </summary>
     internal class ApiRequestExecutor : IApiRequestExecutor
     {
-        private readonly IHttpClientFactory _httpClientFactory;             // - фабрика Http-клиента
-        private readonly Uri _baseAdress = new("http://localhost:5000");    // - базовый адрес Rest-сервиса (хостится из Docker-контейнера)
+        private readonly IHttpClientFactory _httpClientFactory;                 // - фабрика Http-клиента
+        private readonly Uri _baseAdress = new("http://localhost:50000");       // - базовый адрес Rest-сервиса (хостится из Docker-контейнера)
 
 
         /// <summary>

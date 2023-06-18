@@ -34,11 +34,11 @@ namespace DevTricks.ViewModels.Authors
         public async Task InitializeAsync()
         {
             // - запрос авторов с эндпоинта, получим десериализованный response
-            var authorCollectionResponse = await _apiRequestExecutor.GetAsync<AuthorCollectionResponse>("autor/all");
+            var authorCollectionResponse = await _apiRequestExecutor.GetAsync<AuthorCollectionResponse>("author/all");
 
-            // - трансляция получинных элементов в массив вьюмодели в свойство Items (временно)
+            // - трансляция получeнных элементов в массив вьюмодели в свойство Items (временно)
             this.Items = authorCollectionResponse.Items
-                .Select(response => new AuthorCollectionItemViewModel(response.FirstName, response.LastName, response.Birthdate))
+                .Select(response => new AuthorCollectionItemViewModel(response.FirstName, response.LastName, response.BirthDate))
                 .ToArray();
         }
 

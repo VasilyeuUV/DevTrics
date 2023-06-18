@@ -1,7 +1,7 @@
 ﻿namespace DevTricks.Domain.Authors
 {
     /// <summary>
-    /// Коллекции для Авторов, полцчаемых с API
+    /// Коллекции Авторов, получаемые с API
     /// </summary>
     public class AuthorCollectionResponse
     {

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevTricks.Bootstrapper.Logging;
 using DevTricks.Bootstrapper.Services.PathService;
+using DevTricks.Infrastructure.Common;
 
 namespace DevTricks.Bootstrapper
 {
@@ -27,7 +28,7 @@ namespace DevTricks.Bootstrapper
         /// Получение instanse класса Application
         /// </summary>
         /// <returns>зарезолвленный instance</returns>
-        public IApplication Createapplication()
+        public IApplication CreateApplication()
         {
             return _container.Resolve<IApplication>();
         }

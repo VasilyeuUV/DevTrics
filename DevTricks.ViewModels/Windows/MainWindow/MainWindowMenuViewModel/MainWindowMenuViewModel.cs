@@ -21,10 +21,10 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         private readonly IFactory<IAuthorCollectionViewModel> _authorCollectionViewModelFactory;    // - фабрика вьюмодели коллекции авторов
 
         // - команды
-        private Command _closeMainWindowCommand;                    // - команда закрытия главного окна
-        private Command _openAboutWindowCommand;                    // - команда открытия окна "О программе"
-        private AsyncCommand _openAuthorCollectionCommand;          // - команда для получения коллекции Авторов
-        private Command _throwExceptionCommand;                     // - команда имитации исключительной ситуации
+        private readonly Command _closeMainWindowCommand;                    // - команда закрытия главного окна
+        private readonly Command _openAboutWindowCommand;                    // - команда открытия окна "О программе"
+        private readonly AsyncCommand _openAuthorCollectionCommand;          // - команда для получения коллекции Авторов
+        private readonly Command _throwExceptionCommand;                     // - команда имитации исключительной ситуации
 
 
         /// <summary>

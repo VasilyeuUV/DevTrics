@@ -6,7 +6,7 @@ namespace DevTricks.Infrastructure.Settings
     /// Абстрактный класс Memento 
     /// (для использования разными окнами))
     /// </summary>
-    [DataContract]
+    [DataContract]                                   // - этот класс - контракт данных, который может быть сериализован (необязателен, но повышает читаемость кода)
     internal abstract class AWindowMementoBase
     {
         /// <summary>

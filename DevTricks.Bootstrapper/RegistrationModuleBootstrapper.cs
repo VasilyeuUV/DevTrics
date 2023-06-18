@@ -19,10 +19,7 @@ namespace DevTricks.Bootstrapper
         {
             base.Load(builder);
 
-            // - Регистрация фабрики окон
-            builder.RegisterType<WindowFactory>()
-                .As<IWindowFactory>()
-                .SingleInstance();
+            builder.RegisterType<WindowFactory>().As<IWindowFactory>().SingleInstance();            // - регистрация фабрики окон
 
             // - Регистрация фабрики generic-объектов
             builder.RegisterGeneric(typeof(Factory<>))      // - в качестве параметра - тип класса фабрики без указания generic-типа
@@ -30,7 +27,7 @@ namespace DevTricks.Bootstrapper
                 .SingleInstance();
 
             // - Создание и регистрации фабрики Клиента для работы с RestApi (для использования http-запросов)
-            builder.Register( _ =>
+            builder.Register(_ =>
                 {
                     var serviceProvider = new ServiceCollection()
                         .AddHttpClient()

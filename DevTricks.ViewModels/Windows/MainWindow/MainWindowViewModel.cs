@@ -27,13 +27,11 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         {
             this._windowManager = windowManager;
 
-
-
             MenuViewModel = mainWindowMenuViewModelFactory.Create();
+            StatusBarViewModel = mainWindowStatusBarViewModelFactory.Create();
+
             MenuViewModel.MainWindowClosingRequested += OnMainWindowClosingRequested;
             MenuViewModel.ContentViewModelChanged += OnContentViewModelChanged;
-
-            StatusBarViewModel = mainWindowStatusBarViewModelFactory.Create();
         }
 
 
@@ -56,6 +54,16 @@ namespace DevTricks.ViewModels.Windows.MainWindow
         public string Title => "DevTriks";
 
         /// <summary>
+        /// Вьюмодель меню главного окна
+        /// </summary>
+        public IMainWindowMenuViewModel MenuViewModel { get; }
+
+        /// <summary>
+        /// Вьюмодель строки состояния главного окна
+        /// </summary>
+        public IMainWindowStatusBarViewModel StatusBarViewModel { get; }
+
+        /// <summary>
         /// Вьюмодель контента главного окна
         /// </summary>
         public IMainWindowContentViewModel? ContentViewModel
@@ -67,16 +75,6 @@ namespace DevTricks.ViewModels.Windows.MainWindow
                 InvokePropertyChanged();
             }
         }
-
-        /// <summary>
-        /// Вьюмодель меню главного окна
-        /// </summary>
-        public IMainWindowMenuViewModel MenuViewModel { get; }
-
-        /// <summary>
-        /// Вьюмодель строки состояния главного окна
-        /// </summary>
-        public IMainWindowStatusBarViewModel StatusBarViewModel { get; }
 
 
         //############################################################################################################

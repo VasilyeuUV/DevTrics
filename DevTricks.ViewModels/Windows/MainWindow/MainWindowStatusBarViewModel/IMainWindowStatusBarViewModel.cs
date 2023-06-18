@@ -11,12 +11,10 @@
         /// </summary>
         string Version { get; }
 
-
         /// <summary>
         /// Текущая дата
         /// </summary>
         string CurrentDate { get; }
-
 
         /// <summary>
         /// Текущее время

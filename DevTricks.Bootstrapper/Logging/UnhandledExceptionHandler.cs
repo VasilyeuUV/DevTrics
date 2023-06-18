@@ -13,8 +13,8 @@ namespace DevTricks.Bootstrapper.Logging
 
         public void Handle(DispatcherUnhandledExceptionEventArgs args)
         {
-            args.Handled = true;                // - сообщаем подсистеме WPF, что обработали возникшее исключение
             Logger.Error(args.Exception);       // - логирование ошибки и передача Exception
+            args.Handled = true;                // - сообщаем подсистеме WPF, что обработали возникшее исключение
         }
 
         #endregion // IUnhandledExceptionHandler

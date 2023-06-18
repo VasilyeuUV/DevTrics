@@ -7,7 +7,7 @@ namespace DevTricks.Views.Converters
     /// <summary>
     /// Конвертер bool в WindowState и обратно
     /// </summary>
-    internal class BoolToWindowStateConverter : IValueConverter
+    public class BoolToWindowStateConverter : IValueConverter
     {
         // Instance для использования конвертера во View
         // позволит потребителям использовать единственный инстанс этого конвертера 

@@ -1,8 +1,8 @@
-﻿using DevTricks.Infrastructure.Common;
-using DevTricks.Infrastructure.Settings;
+﻿using DevTricks.Domain.Settings;
+using DevTricks.Infrastructure.Common;
 using Newtonsoft.Json;
 
-namespace DevTricks.Domain.Settings
+namespace DevTricks.Infrastructure.Settings
 {
     /// <summary>
     /// Базовый абстрактный класс Wrapper-а для Memento окон
