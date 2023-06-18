@@ -13,12 +13,12 @@
         public AuthorCollectionItemViewModel(
             string firstName,
             string lastName,
-            DateOnly birthDate
+            DateOnly birthDay
             )
         {
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.BirthDate = $"({birthDate.ToShortDateString()})";
+            this.BirthDay = $"({birthDay.ToShortDateString()})";
         }
 
 
@@ -37,6 +37,6 @@
         /// <summary>
         /// Год рождения Автора
         /// </summary>
-        public string BirthDate { get; }
+        public string BirthDay { get; }
     }
 }

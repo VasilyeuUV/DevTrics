@@ -38,7 +38,7 @@ namespace DevTricks.ViewModels.Authors
 
             // - трансляция получeнных элементов в массив вьюмодели в свойство Items (временно)
             this.Items = authorCollectionResponse.Items
-                .Select(response => new AuthorCollectionItemViewModel(response.FirstName, response.LastName, response.BirthDate))
+                .Select(response => new AuthorCollectionItemViewModel(response.FirstName, response.LastName, response.BirthDay))
                 .ToArray();
         }
 

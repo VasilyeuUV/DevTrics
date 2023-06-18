@@ -26,7 +26,7 @@
         /// <summary>
         /// Год рождения Автора
         /// </summary>
-        public required DateOnly BirthDate{ get; init; }
+        public required DateOnly BirthDay{ get; init; }
 
     }
 }

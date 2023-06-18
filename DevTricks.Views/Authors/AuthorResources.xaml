@@ -15,7 +15,7 @@
         <TextBlock>
             <Run Text="{Binding FirstName, Mode=OneWay}"/>
             <Run Text="{Binding LastName, Mode=OneWay}"/>
-            <Run Text="{Binding BirthDate, Mode=OneWay}"/>
+            <Run Text="{Binding BirthDay, Mode=OneWay}"/>
         </TextBlock>
     </DataTemplate>
 </ResourceDictionary>
