@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/DevTricks.Views;component/Authors/AuthorResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DevTricks.Views;component/DevTools/DevToolsResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

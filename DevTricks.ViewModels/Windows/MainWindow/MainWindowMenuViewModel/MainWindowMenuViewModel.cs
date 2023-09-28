@@ -2,6 +2,7 @@
 using DevTricks.ViewModels.Authors;
 using DevTricks.ViewModels.Commands;
 using DevTricks.ViewModels.Windows.AboutWindow;
+using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToolsMenuViewModel;
 using System.Windows.Input;
 
 namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
@@ -24,7 +25,6 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         private readonly Command _closeMainWindowCommand;                    // - команда закрытия главного окна
         private readonly Command _openAboutWindowCommand;                    // - команда открытия окна "О программе"
         private readonly AsyncCommand _openAuthorCollectionCommand;          // - команда для получения коллекции Авторов
-        private readonly Command _throwExceptionCommand;                     // - команда имитации исключительной ситуации
 
 
         /// <summary>
@@ -33,18 +33,23 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         public MainWindowMenuViewModel(
             IWindowManager windowManager,
             IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory,
-            IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory
+            IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory,
+            IFactory<IDevToolsMenuViewModel> devToolsMenuViewModelFactory
             )
         {
             this._windowManager = windowManager;
             this._aboutWindowViewModelFactory = aboutWindowViewModelFactory;
             this._authorCollectionViewModelFactory = authorCollectionViewModelFactory;
 
+            DevToolsMenuViewModel = devToolsMenuViewModelFactory.Create();
+
             _closeMainWindowCommand = new Command(CloseMainWindow);
             _openAboutWindowCommand = new Command(OpenAboutWindow);
             _openAuthorCollectionCommand = new AsyncCommand(OpenAuthorCollectionAsync);
-            _throwExceptionCommand = new Command(() =>throw new Exception("Test exception"));
+
+            DevToolsMenuViewModel.ContentViewModelChanged += OnContentViewModelChanged;
         }
+
 
 
         //######################################################################################################################
@@ -65,6 +70,23 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
                 _aboutWindowViewModel = null;
             }
         }
+
+
+        /// <summary>
+        /// Обработчик события изменения контента главного окна
+        /// </summary>
+        /// <param name="model"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void OnContentViewModelChanged(IMainWindowContentViewModel contentViewModel)
+        {
+            /*
+            Запускаем собственное событие.
+            Когда DevTools создаст контент и запустит событие, оно заставит MainVindowViewModel среагировать на это событие
+            и запустить своё событие, на которое среогиро=ует вьюмодель главного окна и отобразит нужный контент.
+            */
+            ContentViewModelChanged?.Invoke(contentViewModel);
+        }
+
 
         #endregion // EVENTS
 
@@ -123,12 +145,20 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
         public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
         public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
-        public ICommand ThrowExceptionCommand => _throwExceptionCommand;
+
+        public IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
 
         public void CloseAboutWindow()
         {
             if (_aboutWindowViewModel != null)
                 _windowManager.Close(_aboutWindowViewModel);        // - закрытие окна "О программе"
+        }
+
+
+        public void Dispose()
+        {
+            DevToolsMenuViewModel.ContentViewModelChanged -= OnContentViewModelChanged;
+
         }
 
 

@@ -12,14 +12,18 @@ namespace DevTricks.Bootstrapper.Logging
     internal class LogManagerInitializer : ILogManagerInitializer, IDisposable
     {
         private readonly IPathService _pathService;
+        private readonly ILogNotifier _logNotifier;
 
         /// <summary>
         /// CTOR
         /// </summary>
-        public LogManagerInitializer(IPathService pathService)
+        public LogManagerInitializer(
+            IPathService pathService,
+            ILogNotifier logNotifier
+            )
         {
             this._pathService = pathService;
-
+            this._logNotifier = logNotifier;
             var loggingConfiguration = CreateLoggingConfiguration();
             LogManager.Configuration = loggingConfiguration;
         }
@@ -36,6 +40,9 @@ namespace DevTricks.Bootstrapper.Logging
 
             var appLoggingRule = CreateAppLogingRule();
             logginConfiguration.AddRule(appLoggingRule);
+
+            var notificationLoggingRule = CreateNotificationLoggingRule();
+            logginConfiguration.AddRule(notificationLoggingRule);
 
             return logginConfiguration;
         }
@@ -65,6 +72,20 @@ namespace DevTricks.Bootstrapper.Logging
             var loggingRule = new LoggingRule("*", LogLevel.Info, asyncTargetWrapper);
             return loggingRule;
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private LoggingRule CreateNotificationLoggingRule()
+        {
+            var notificationTarget = new NotificationTarget(_logNotifier);
+            var notificationLoggingRule = new LoggingRule("*", LogLevel.Info, notificationTarget);
+            return notificationLoggingRule;
+        }
+
 
 
         //######################################################################################################################

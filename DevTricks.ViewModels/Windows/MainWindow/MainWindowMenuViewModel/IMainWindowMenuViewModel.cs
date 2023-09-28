@@ -1,11 +1,12 @@
-﻿using System.Windows.Input;
+﻿using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToolsMenuViewModel;
+using System.Windows.Input;
 
 namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
 {
     /// <summary>
     /// Контракт для меню главного окна
     /// </summary>
-    public interface IMainWindowMenuViewModel
+    public interface IMainWindowMenuViewModel : IDisposable
     {
         /// <summary>
         /// Для уведомления о закрытии главного окна
@@ -34,10 +35,13 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         /// </summary>
         ICommand OpenAuthorCollectionCommand { get; }
 
+
+
         /// <summary>
-        /// Команда для вызова исключительной ситуации (для тестирования)
+        /// Вьюмодель пунктов меню режима DevTools
         /// </summary>
-        ICommand ThrowExceptionCommand { get; }
+        IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
+
 
 
         /// <summary>

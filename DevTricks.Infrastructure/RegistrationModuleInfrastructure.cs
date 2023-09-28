@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using DevTricks.Domain.DevTools;
 using DevTricks.Domain.Rest;
 using DevTricks.Domain.Settings.AboutWindowSettings;
 using DevTricks.Domain.Settings.MainWindowSettings;
 using DevTricks.Domain.Version;
+using DevTricks.Infrastructure.DevTools;
 using DevTricks.Infrastructure.Rest;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.Infrastructure.Settings.AboutWindowSettings;
@@ -43,6 +45,11 @@ namespace DevTricks.Infrastructure
             // - Регистрация RestApiExecutor
             builder.RegisterType<ApiRequestExecutor>()
                 .As<IApiRequestExecutor>()
+                .SingleInstance();
+
+            // - Регистрация провайдера режима DevTools
+            builder.RegisterType<DevToolsStatusProvider>()
+                .As<IDevToolsStatusProvider>()
                 .SingleInstance();
 
         }

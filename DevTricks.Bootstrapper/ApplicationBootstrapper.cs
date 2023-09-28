@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevTricks.Bootstrapper.Logging;
 using DevTricks.Bootstrapper.Services.PathService;
+using DevTricks.Domain.Logging;
 using DevTricks.Infrastructure.Common;
 
 namespace DevTricks.Bootstrapper
@@ -51,10 +52,23 @@ namespace DevTricks.Bootstrapper
         /// <param name="containerBuilder"></param>
         private void RegisterDependencies(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterType<Application>().As<IApplication>().SingleInstance();
-            containerBuilder.RegisterType<PathService>().As<IPathService>().As<IPathServiceInitializer>().SingleInstance();
-            containerBuilder.RegisterType<UnhandledExceptionHandler>().As<IUnhandledExceptionHandler>().SingleInstance();       // - для системы логгирования
-            containerBuilder.RegisterType<LogManagerInitializer>().As<ILogManagerInitializer>().SingleInstance();               // - система логгирования
+            containerBuilder.RegisterType<Application>()
+                .As<IApplication>()
+                .SingleInstance();
+            containerBuilder.RegisterType<PathService>()
+                .As<IPathService>()
+                .As<IPathServiceInitializer>()
+                .SingleInstance();
+            containerBuilder.RegisterType<UnhandledExceptionHandler>()          // - для системы логгирования
+                .As<IUnhandledExceptionHandler>()
+                .SingleInstance();       
+            containerBuilder.RegisterType<LogManagerInitializer>()              // - система логгирования
+                .As<ILogManagerInitializer>()
+                .SingleInstance();               
+            containerBuilder.RegisterType<LogNotifier>()                        // - отображение логов в контенте
+                .As<ILogNotifier>()
+                .As<ILogSubscriber>()
+                .SingleInstance();              
         }
 
 

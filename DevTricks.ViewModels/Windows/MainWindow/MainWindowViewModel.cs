@@ -71,6 +71,10 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             get => _contentViewModel;
             private set
             {
+                // - если предыдущий контент реализует IDisposable, он должен быть задиспожен
+                if (_contentViewModel is IDisposable disposableViewModel)
+                    disposableViewModel.Dispose();
+
                 _contentViewModel = value;
                 InvokePropertyChanged();
             }
@@ -113,7 +117,11 @@ namespace DevTricks.ViewModels.Windows.MainWindow
             MenuViewModel.MainWindowClosingRequested -= OnMainWindowClosingRequested;
             MenuViewModel.ContentViewModelChanged -= OnContentViewModelChanged;
 
+            // - окончательно освободить занятые контентом ресурсы
+            ContentViewModel = null;
+
             StatusBarViewModel.Dispose();
+            MenuViewModel.Dispose();
         }
 
         #endregion // IMainWindowViewModel
