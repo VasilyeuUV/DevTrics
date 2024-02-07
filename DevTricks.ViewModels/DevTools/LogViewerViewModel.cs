@@ -39,7 +39,7 @@ namespace DevTricks.ViewModels.DevTools
                 LoggerName = args.LoggerName,
                 Message = args.Message,
                 LogLevel = args.LogLevel,
-                Timestamp = args.Timestamp.ToLongDateString(),
+                Timestamp = $"{args.Timestamp.ToLongDateString()} {args.Timestamp.ToLongTimeString()}",
                 StackTrace = args.StackTrace,
             };
             _logEntryViewModels.Add(logEntryViewModel);
