@@ -1,7 +1,10 @@
 ﻿using Autofac;
 using DevTricks.Domain.DispatcherTimer;
+using DevTricks.ViewModels.Themes;
 using DevTricks.ViewModels.Windows;
 using DevTricks.Views.DispatcherTimer;
+using DevTricks.Views.Themes;
+using DevTricks.Views.Themes.ThemeConfigurations;
 using DevTricks.Views.Windows;
 using DevTricks.Views.Windows.AboutWindow;
 using DevTricks.Views.Windows.MainWindow;
@@ -37,6 +40,15 @@ namespace DevTricks.Views
                 .As<IDispatcherTimerFactory>()
                 .SingleInstance();
 
+            builder.RegisterType<DarkThemeConfiguration>()         // - регистрация темной темы
+                .As<IThemeConfiguration>()
+                .SingleInstance();
+            builder.RegisterType<LightThemeConfiguration>()        // - регистрация светлой темы
+                .As<IThemeConfiguration>()
+                .SingleInstance();
+            builder.RegisterType<ThemeManager>()                   // - регистрация менеджера конфигураций.
+                .As<IThemeManager>()
+                .SingleInstance();
         }
     }
 }

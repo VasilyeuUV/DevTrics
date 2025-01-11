@@ -1,4 +1,5 @@
 ﻿using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToolsMenuViewModel;
+using DevTricks.ViewModels.Windows.MainWindow.Menu;
 using System.Windows.Input;
 
 namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
@@ -41,6 +42,11 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         /// Вьюмодель пунктов меню режима DevTools
         /// </summary>
         IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
+
+        /// <summary>
+        /// Вьюмодель меню переключения тем приложения.
+        /// </summary>
+        IViewMenuViewModel ViewMenuViewModel { get; }
 
 
 

@@ -16,8 +16,16 @@
         Width="{Binding Width, Mode=TwoWay}"
         WindowState="{Binding IsMaximized, Mode=TwoWay, Converter={x:Static converters:BoolToWindowStateConverter.Instance}}"
         
+        Style="{StaticResource WindowStyle}"
+        
         d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}"
         >
+    <!--
+    Т.к. окна являются производными от класса Window, автоматически стиль к ним не может быть применен
+    Поэтому стиль для окон указывается явным образом, используя ключ созданного стиля
+    в Style="{StaticResource WindowStyle}".
+    -->
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,10 +38,21 @@
                 <MenuItem Header="Exit"
                           Command="{Binding MenuViewModel.CloseMainWindowCommand}"/>
             </MenuItem>
+
+            <MenuItem Header="View">
+                <MenuItem Header="Themes">
+                    <MenuItem Header="Light"
+                              Command="{Binding MenuViewModel.ViewMenuViewModel.ThemesMenuViewModel.SetLightThemeCommand}"/>
+                    <MenuItem Header="Dark"
+                              Command="{Binding MenuViewModel.ViewMenuViewModel.ThemesMenuViewModel.SetDarkThemeCommand}"/>                    
+                </MenuItem>
+            </MenuItem>
+
             <MenuItem Header="Collections">
                 <MenuItem Header="Authors"
                           Command="{Binding MenuViewModel.OpenAuthorCollectionCommand}"/>
             </MenuItem>
+            
             <MenuItem Header="DevTools"
                       Visibility="{Binding MenuViewModel.DevToolsMenuViewModel.IsVisible, 
                                            Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
@@ -54,15 +73,16 @@
                               />
                     <MenuItem Header ="Write Fatal log"
                               Command="{Binding MenuViewModel.DevToolsMenuViewModel.WriteFatalLogCommand}"
-                              />                    
+                              />
                 </MenuItem>
                 <MenuItem Header="Throw exception"
                           Command="{Binding MenuViewModel.DevToolsMenuViewModel.ThrowExceptionCommand}"/>
             </MenuItem>
+            
             <MenuItem Header="Help">
                 <MenuItem Header="About"
                           Command="{Binding MenuViewModel.OpenAboutWindowCommand}"/>
-            </MenuItem>            
+            </MenuItem>
         </Menu>
 
         <ContentControl Grid.Row="1"

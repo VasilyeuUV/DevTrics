@@ -1,0 +1,14 @@
+﻿<!--
+    Для того, чтобы окна умели использовать цвет фона соответствующей темы,
+    создаем это словарь ресурсов для окон, где создадим стиль для Background
+-->
+    
+    
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:themes="clr-namespace:DevTricks.Views.Themes">
+    <Style x:Key="WindowStyle"
+           TargetType="{x:Type Window}">
+        <Setter Property="Background" Value="{Binding Source={x:Static themes:ThemeResources.Properties}, Path=PrimaryBackground}"></Setter>
+    </Style>
+</ResourceDictionary>

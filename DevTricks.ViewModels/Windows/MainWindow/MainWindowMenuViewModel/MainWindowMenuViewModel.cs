@@ -3,6 +3,7 @@ using DevTricks.ViewModels.Authors;
 using DevTricks.ViewModels.Commands;
 using DevTricks.ViewModels.Windows.AboutWindow;
 using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToolsMenuViewModel;
+using DevTricks.ViewModels.Windows.MainWindow.Menu;
 using System.Windows.Input;
 
 namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
@@ -34,7 +35,8 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
             IWindowManager windowManager,
             IFactory<IAboutWindowViewModel> aboutWindowViewModelFactory,
             IFactory<IAuthorCollectionViewModel> authorCollectionViewModelFactory,
-            IFactory<IDevToolsMenuViewModel> devToolsMenuViewModelFactory
+            IFactory<IDevToolsMenuViewModel> devToolsMenuViewModelFactory,
+            IFactory<IViewMenuViewModel> viewMenuViewModelFactory
             )
         {
             this._windowManager = windowManager;
@@ -42,6 +44,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
             this._authorCollectionViewModelFactory = authorCollectionViewModelFactory;
 
             DevToolsMenuViewModel = devToolsMenuViewModelFactory.Create();
+            ViewMenuViewModel = viewMenuViewModelFactory.Create();
 
             _closeMainWindowCommand = new Command(CloseMainWindow);
             _openAboutWindowCommand = new Command(OpenAboutWindow);
@@ -142,11 +145,15 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
         public event Action? MainWindowClosingRequested;
         public event Action<IMainWindowContentViewModel>? ContentViewModelChanged;
 
+
+        public IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
+        public IViewMenuViewModel ViewMenuViewModel { get; }
+
+
         public ICommand CloseMainWindowCommand => _closeMainWindowCommand;
         public ICommand OpenAboutWindowCommand => _openAboutWindowCommand;
         public ICommand OpenAuthorCollectionCommand => _openAuthorCollectionCommand;
 
-        public IDevToolsMenuViewModel DevToolsMenuViewModel { get; }
 
         public void CloseAboutWindow()
         {
@@ -160,7 +167,6 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel
             DevToolsMenuViewModel.ContentViewModelChanged -= OnContentViewModelChanged;
 
         }
-
 
         #endregion // IMainWindowMenuViewModel
     }

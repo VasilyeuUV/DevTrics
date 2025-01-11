@@ -3,6 +3,7 @@ using DevTricks.Domain.Factories;
 using DevTricks.Infrastructure;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.ViewModels;
+using DevTricks.ViewModels.Themes;
 using DevTricks.ViewModels.Windows;
 using DevTricks.ViewModels.Windows.MainWindow;
 using DevTricks.Views;
@@ -54,7 +55,11 @@ namespace DevTricks.Bootstrapper
             // - получение коллекции Wrapper-ов
             var windowMementoWrapperInitializers = _applicationLifetimeScope.Resolve<IEnumerable<IWindowMementoWrapperInitializer>>();
             foreach (var windowMementoWrapperInitializer in windowMementoWrapperInitializers)
+            {
                 windowMementoWrapperInitializer.Initialize();                           // - инициализация Wrapper-а Memento окна приложения   
+            }
+
+            _applicationLifetimeScope.Resolve<IThemeManager>().SwitchTo(Theme.Dark);    // - запускаем приложение с темной темы.
         }
 
 

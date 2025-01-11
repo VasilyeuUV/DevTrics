@@ -17,6 +17,8 @@
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         
+        Style="{StaticResource WindowStyle}"        
+        
         d:DataContext="{d:DesignInstance aboutWindow:AboutWindowViewModel}"
         >
     <StackPanel Orientation="Vertical"
