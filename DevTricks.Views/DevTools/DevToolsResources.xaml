@@ -3,11 +3,21 @@
                     xmlns:devTools="clr-namespace:DevTricks.ViewModels.DevTools;assembly=DevTricks.ViewModels"
                     xmlns:devTools1="clr-namespace:DevTricks.Views.DevTools"
                     xmlns:converters="clr-namespace:DevTricks.Views.Converters"
-                    >
+                    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase">
     <!--шаблон данных 1-->
     <DataTemplate DataType="{x:Type devTools:LogViewerViewModel}">
         <ScrollViewer HorizontalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding LogEntryViewModels}"
+            <!--ВИЗУАЛИЗАЦИЯ ДАННЫХ (включая порядок отображения) - ОТВЕТСТВЕННОСТЬ ВЬЮ-->
+            <ScrollViewer.Resources>
+                <CollectionViewSource x:Key="LogEntryViewModelsViewSource"
+                                      Source="{Binding LogEntryViewModels}">
+                    <CollectionViewSource.SortDescriptions>
+                        <componentModel:SortDescription Direction="Descending"
+                                                        PropertyName="Timestamp"/>
+                    </CollectionViewSource.SortDescriptions>
+                </CollectionViewSource>
+            </ScrollViewer.Resources>
+            <ItemsControl ItemsSource="{Binding Source={StaticResource LogEntryViewModelsViewSource}}"
                           Margin="5,0"
                           />
         </ScrollViewer>

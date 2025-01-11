@@ -8,9 +8,14 @@ namespace DevTricks.ViewModels.DevTools
     public class LogEntryViewModel
     {
         /// <summary>
+        /// Для сортировки логов по времени создания.
+        /// </summary>
+        public required DateTime Timestamp { get; init; }
+
+        /// <summary>
         /// Время создания лога
         /// </summary>
-        public required string Timestamp { get; init; }
+        public required string TimestampValue { get; init; }
 
         /// <summary>
         /// Тип лога

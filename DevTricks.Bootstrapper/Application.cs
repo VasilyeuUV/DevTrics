@@ -3,6 +3,7 @@ using DevTricks.Domain.Factories;
 using DevTricks.Infrastructure;
 using DevTricks.Infrastructure.Settings;
 using DevTricks.ViewModels;
+using DevTricks.ViewModels.DevTools;
 using DevTricks.ViewModels.Themes;
 using DevTricks.ViewModels.Windows;
 using DevTricks.ViewModels.Windows.MainWindow;
@@ -59,6 +60,7 @@ namespace DevTricks.Bootstrapper
                 windowMementoWrapperInitializer.Initialize();                           // - инициализация Wrapper-а Memento окна приложения   
             }
 
+            _applicationLifetimeScope.Resolve<ILogEntryViewModelRepository>();          // - создаем независимое хранилище логов.
             _applicationLifetimeScope.Resolve<IThemeManager>().SwitchTo(Theme.Dark);    // - запускаем приложение с темной темы.
         }
 

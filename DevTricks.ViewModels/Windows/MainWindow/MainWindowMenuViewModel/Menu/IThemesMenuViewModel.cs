@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace DevTricks.ViewModels.Windows.MainWindow.Menu;
+namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.Menu;
 
 /// <summary>
 /// Контракт для вьюмодели меню переключения тем.

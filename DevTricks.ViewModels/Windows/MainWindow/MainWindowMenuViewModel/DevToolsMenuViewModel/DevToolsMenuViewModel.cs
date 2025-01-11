@@ -26,7 +26,8 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToo
         /// </summary>
         public DevToolsMenuViewModel(
             IDevToolsStatusProvider devToolsStatusProvider,
-            IFactory<ILogViewerViewModel> logViewerViewModelFactory
+            IFactory<ILogViewerViewModel> logViewerViewModelFactory,
+            ILogEntryViewModelRepository logEntryViewModelRepository
             )
         {
             this._devToolsStatusProvider = devToolsStatusProvider;
@@ -39,6 +40,7 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToo
             WriteWarnLogCommand = new Command(() => _logger.Warn("Testing warning log"));
             WriteErrorLogCommand = new Command(() => _logger.Error("Testing error log"));
             WriteFatalLogCommand = new Command(() => _logger.Fatal("Testing fatal log"));
+            ClearLogsLogCommand = new Command(logEntryViewModelRepository.Clear);
         }
 
 
@@ -61,16 +63,12 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToo
         public bool IsVisible => _devToolsStatusProvider.IsEnabled;
 
         public ICommand ThrowExceptionCommand => _throwExceptionCommand;
-
         public ICommand OpenLogViewerCommand => _openLogViewerCommand;
-
         public ICommand WriteInfoLogCommand { get; }
-
         public ICommand WriteWarnLogCommand { get; }
-
         public ICommand WriteErrorLogCommand { get; }
-
         public ICommand WriteFatalLogCommand { get; }
+        public ICommand ClearLogsLogCommand { get; }
 
         #endregion // IDevToolsMenuViewModel
     }

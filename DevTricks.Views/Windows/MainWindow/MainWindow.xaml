@@ -74,6 +74,10 @@
                     <MenuItem Header ="Write Fatal log"
                               Command="{Binding MenuViewModel.DevToolsMenuViewModel.WriteFatalLogCommand}"
                               />
+                    <Separator/>
+                    <MenuItem Header ="Clear logs"
+                              Command="{Binding MenuViewModel.DevToolsMenuViewModel.ClearLogsLogCommand}"
+                              />                    
                 </MenuItem>
                 <MenuItem Header="Throw exception"
                           Command="{Binding MenuViewModel.DevToolsMenuViewModel.ThrowExceptionCommand}"/>

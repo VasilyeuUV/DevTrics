@@ -48,5 +48,10 @@ namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToo
         /// </summary>
         ICommand WriteFatalLogCommand { get; }
 
+        /// <summary>
+        /// Очистить логи.
+        /// </summary>
+        ICommand ClearLogsLogCommand { get; }
+
     }
 }

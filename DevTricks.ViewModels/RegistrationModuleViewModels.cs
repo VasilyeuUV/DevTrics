@@ -6,8 +6,8 @@ using DevTricks.ViewModels.Windows.AboutWindow;
 using DevTricks.ViewModels.Windows.MainWindow;
 using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel;
 using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToolsMenuViewModel;
+using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.Menu;
 using DevTricks.ViewModels.Windows.MainWindow.MainWindowStatusBarViewModel;
-using DevTricks.ViewModels.Windows.MainWindow.Menu;
 
 namespace DevTricks.ViewModels
 {
@@ -34,6 +34,9 @@ namespace DevTricks.ViewModels
             builder.RegisterViewModel<LogViewerViewModel, ILogViewerViewModel>();                           // - отображение логов в контентной части
             builder.RegisterViewModel<ThemesMenuViewModel, IThemesMenuViewModel>();                         // - вьюмодель меню переключения темы приложения
             builder.RegisterViewModel<ViewMenuViewModel, IViewMenuViewModel>();                             // - вьюмодель меню
+            builder.RegisterType<LogEntryViewModelRepository>()                                             // - независимое хранилище логов
+                .As<ILogEntryViewModelRepository>()
+                .SingleInstance();
 
         }
     }

@@ -1,6 +1,6 @@
 ﻿using DevTricks.Domain.Factories;
 
-namespace DevTricks.ViewModels.Windows.MainWindow.Menu;
+namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.Menu;
 
 /// <summary>
 /// Вьюмодель для Menu View

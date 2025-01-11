@@ -3,7 +3,7 @@ using DevTricks.ViewModels.Authors;
 using DevTricks.ViewModels.Commands;
 using DevTricks.ViewModels.Windows.AboutWindow;
 using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.DevToolsMenuViewModel;
-using DevTricks.ViewModels.Windows.MainWindow.Menu;
+using DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel.Menu;
 using System.Windows.Input;
 
 namespace DevTricks.ViewModels.Windows.MainWindow.MainWindowMenuViewModel

@@ -1,9 +1,11 @@
 ﻿using Autofac;
+using DevTricks.Domain.Collections;
 using DevTricks.Domain.DevTools;
 using DevTricks.Domain.Rest;
 using DevTricks.Domain.Settings.AboutWindowSettings;
 using DevTricks.Domain.Settings.MainWindowSettings;
 using DevTricks.Domain.Version;
+using DevTricks.Infrastructure.Collections;
 using DevTricks.Infrastructure.DevTools;
 using DevTricks.Infrastructure.Rest;
 using DevTricks.Infrastructure.Settings;
@@ -50,6 +52,11 @@ namespace DevTricks.Infrastructure
             // - Регистрация провайдера режима DevTools
             builder.RegisterType<DevToolsStatusProvider>()
                 .As<IDevToolsStatusProvider>()
+                .SingleInstance();
+
+            // - Регистрация перезаписываемой коллекции
+            builder.RegisterType<RotatableCollectionFactory>()
+                .As<IRotatableCollectionFactory>()
                 .SingleInstance();
 
         }

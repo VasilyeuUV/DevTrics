@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTricks.Views", "DevTrick
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTricks.ViewModels", "DevTricks.ViewModels\DevTricks.ViewModels.csproj", "{C83488DC-0869-4D07-BBC9-7F17C496B5E7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{156A2DB1-1668-45EC-9376-4F22D87981C0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTricks.Domain", "DevTricks.Domain\DevTricks.Domain.csproj", "{8C4C30F1-2416-4392-A9A3-871B57924646}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTricks.Infrastructure", "DevTricks.Infrastructure\DevTricks.Infrastructure.csproj", "{B6729338-F737-485A-B625-D6BD7F06A78C}"
@@ -55,10 +53,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{8C4C30F1-2416-4392-A9A3-871B57924646} = {156A2DB1-1668-45EC-9376-4F22D87981C0}
-		{B6729338-F737-485A-B625-D6BD7F06A78C} = {156A2DB1-1668-45EC-9376-4F22D87981C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBD5A0B9-93EE-4AA6-92DB-A7698876C430}
